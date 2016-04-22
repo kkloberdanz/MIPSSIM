@@ -1,0 +1,117 @@
+<body>
+    <head>
+        <title>CS161: MIPS Instruction Reference</title>
+        <link rel="shortcut icon" href="../v_squared.ico">
+        <link rel="stylesheet" href="../course.css" type="text/css">
+    </head>
+    <body>
+
+<h2>MIPS Instruction Reference</h2>
+
+<h3>Arithmetic and Logical Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>add    <td>100000<td>f $d, $s, $t <td>$d = $s + $t
+<tr><td>addu   <td>100001<td>f $d, $s, $t <td>$d = $s + $t
+<tr><td>addi   <td>001000<td>f $d, $s, i<td>$d = $s + SE(i)
+<tr><td>addiu  <td>001001<td>f $d, $s, i<td>$d = $s + SE(i)
+<tr><td>and    <td>100100<td>f $d, $s, $t <td>$d = $s &amp; $t
+<tr><td>andi   <td>001100<td>f $d, $s, i<td>$t = $s &amp; ZE(i)
+<tr><td>div    <td>011010<td>f $s, $t  <td>lo = $s / $t; hi = $s % $t
+<tr><td>divu   <td>011011<td>f $s, $t  <td>lo = $s / $t; hi = $s % $t
+<tr><td>mult   <td>011000<td>f $s, $t  <td>hi:lo = $s * $t
+<tr><td>multu  <td>011001<td>f $s, $t  <td>hi:lo = $s * $t
+<tr><td>nor    <td>100111<td>f $d, $s, $t <td>$d = ~($s | $t)
+<tr><td>or     <td>100101<td>f $d, $s, $t <td>$d = $s | $t
+<tr><td>ori    <td>001101<td>f $d, $s, i<td>$t = $s | ZE(i)
+<tr><td>sll    <td>000000<td>f $d, $t, a    <td>$d = $t &lt;&lt; a
+<tr><td>sllv   <td>000100<td>f $d, $t, $s   <td>$d = $t &lt;&lt; $s
+<tr><td>sra    <td>000011<td>f $d, $t, a    <td>$d = $t &gt;&gt; a
+<tr><td>srav   <td>000111<td>f $d, $t, $s   <td>$d = $t &gt;&gt; $s
+<tr><td>srl    <td>000010<td>f $d, $t, a    <td>$d = $t &gt;&gt;&gt; a
+<tr><td>srlv   <td>000110<td>f $d, $t, $s   <td>$d = $t &gt;&gt;&gt; $s
+<tr><td>sub    <td>100010<td>f $d, $s, $t <td>$d = $s - $t
+<tr><td>subu   <td>100011<td>f $d, $s, $t <td>$d = $s - $t
+<tr><td>xor    <td>100110<td>f $d, $s, $t <td>$d = $s ^ $t
+<tr><td>xori   <td>001110<td>f $d, $s, i<td>$d = $s ^ ZE(i)
+</table>
+
+<h3>Constant-Manipulating Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>lhi    <td>011001<TD>o $t, immed32<TD><TT>HH ($t) = i</TT>
+<tr><td>llo    <td>011000<TD>o $t, immed32<TD><TT>LH ($t) = i</TT>
+</table>
+
+<h3>Comparison Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>slt    <td>101010<td>f $d, $s, $t <td>$d = ($s &lt; $t)
+<tr><td>sltu   <td>101001<td>f $d, $s, $t <td>$d = ($s &lt; $t)
+<tr><td>slti   <td>001010<td>f $d, $s, i<td>$t = ($s &lt; SE(i))
+<tr><td>sltiu  <td>001001<td>f $d, $s, i<td>$t = ($s &lt; SE(i))
+</table>
+
+<h3>Branch Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>beq    <td>000100<td>o $s, $t, label   <td>if ($s == $t) pc += i &lt;&lt; 2
+<tr><td>bgtz   <td>000111<td>o $s, label  <td>if ($s &gt; 0) pc += i &lt;&lt; 2
+<tr><td>blez   <td>000110<td>o $s, label  <td>if ($s &lt;= 0) pc += i &lt;&lt; 2
+<tr><td>bne    <td>000101<td>o $s, $t, label   <td>if ($s != $t) pc += i &lt;&lt; 2
+</table>
+
+<h3>Jump Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>j      <td>000010<td>o label     <td>pc += i &lt;&lt; 2
+<tr><td>jal    <td>000011<td>o label     <td>$31 = pc; pc += i &lt;&lt; 2
+<tr><td>jalr   <td>001001<td>o labelR    <td>$31 = pc; pc = $s
+<tr><td>jr     <td>001000<td>o labelR    <td>pc = $s
+</table>
+
+<h3>Load Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>lb     <td>100000<td>o $t, i ($s)<td><TT>$t = SE (MEM [$s + i]:1)</TT>
+<tr><td>lbu    <td>100100<td>o $t, i ($s)<td><TT>$t = ZE (MEM [$s + i]:1)</TT>
+<tr><td>lh     <td>100001<td>o $t, i ($s)<td><TT>$t = SE (MEM [$s + i]:2)</TT>
+<tr><td>lhu    <td>100101<td>o $t, i ($s)<td><TT>$t = ZE (MEM [$s + i]:2)</TT>
+<tr><td>lw     <td>100011<td>o $t, i ($s)<td><TT>$t = MEM [$s + i]:4</TT>
+</table>
+
+<h3>Store Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>sb     <td>101000<td>o $t, i ($s)<td><TT>MEM [$s + i]:1 = LB ($t)</TT>
+<tr><td>sh     <td>101001<td>o $t, i ($s)<td><TT>MEM [$s + i]:2 = LH ($t)</TT>
+<tr><td>sw     <td>101011<td>o $t, i ($s)<td><TT>MEM [$s + i]:4 = $t</TT>
+</table>
+
+<h3>Data Movement Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>mfhi   <td>010000<td>f $d <td>$d = hi
+<tr><td>mflo   <td>010010<td>f $d <td>$d = lo
+<tr><td>mthi   <td>010001<td>f $s   <td>hi = $s
+<tr><td>mtlo   <td>010011<td>f $s   <td>lo = $s
+</table>
+
+<h3>Exception and Interrupt Instructions</h3>
+
+<table width="600" border="1" cellspacing="0" cellpadding="5">
+<tr><th>Instruction<th>Opcode/Function<th>Syntax<th>Operation
+<tr><td>trap   <td>011010<td>o i<td>Dependent on OS; different values for immed26
+specify different operations.
+</table>
+
+    </body>
+</html>

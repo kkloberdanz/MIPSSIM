@@ -1,0 +1,373 @@
+<HTML>
+<TITLE>
+Instruction Format
+</TITLE>
+<BODY bgcolor=white>
+<CENTER>
+<H1>
+Instruction Format
+</H1>
+</CENTER>
+<BODY bgcolor=white>
+
+<H3>
+Introduction
+</H3>
+
+   The MIPS R2000/R3000 ISA has fixed-width 32 bit instructions.
+Fixed-width instructions are common for RISC processors because
+they make it easy to fetch instructions without having to decode.
+These instructions must be stored at word-aligned addresses (i.e.,
+addresses divisible by 4).
+<P>
+   The MIPS ISA instructions fall into three categories:
+R-type, I-type, and J-type.   Not all ISAs divide their instructions
+this neatly.  This is one reason to study MIPS as a first assembly
+language.  The format is simple.
+<H3>
+R-type
+</H3>
+  R-type instructions refer to register type instructions.  Of the
+three formats, the R-type is the most complex.
+<P>
+  This is the format of the R-type instruction, when it is encoded
+in machine code.
+<P>
+<CENTER>
+<TABLE border=1 cellpadding=3>
+<TR bgcolor=pink align=center>
+  <TD>
+     <B>B<sub>31-26</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>25-21</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>20-16</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>15-11</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>10-6</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>5-0</sub> </B>
+  </TD>
+</TR>
+
+<TR align=center>
+  <TD>
+     <B> &nbsp; opcode &nbsp; </B>
+  </TD>
+  <TD>
+     <B> register <B>s</B> </B>
+  </TD>
+  <TD>
+     <B> register <B>t</B> </B>
+  </TD>
+  <TD>
+     <B> register <B>d</B> </B>
+  </TD>
+  <TD>
+     <B> shift amount </B>
+  </TD>
+  <TD>
+     <B> function </B>
+  </TD>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+   The prototypical R-type instruction is:
+<FONT size=+3>
+<PRE>
+add $rd, $rs, $rt
+</PRE>
+</FONT>
+   where $rd refers to some register <B>d</B> (<B>d</B> is shown
+as a variable, however, to use the instruction, you must put a
+number between 0 and 31, inclusive for <B>d</B>). <B>$rs</B>, <B>$rt</B> are
+also registers.
+<P>
+   The semantics of the instruction are;
+<FONT size=+3>
+<PRE>
+R[d] = R[s] + R[t]
+</PRE>
+</FONT>
+  where the addition is signed addition.
+<P>
+  You will notice that the order of the registers in the instruction
+is the destination register (<B>$rd</B>), followed by the two source
+registers (<B>$rs</B> and <B>$rt</B>).
+<P>
+  However, the actual binary format (shown in the table above)
+stores the two source registers first, then the destination
+register.  Thus, how the assembly language programmer uses the
+instruction, and how the instruction is stored in binary, do not
+always have to match.
+<P>
+   Let's explain each of the fields of the R-type instruction.
+<P>
+<UL type=disc>
+  <LI> <B>opcode</B> (B<sub>31-26</sub>)
+<P>
+  Opcode is short for "operation code".  The opcode is a binary
+encoding for the instruction. Opcodes are seen in all ISAs.  In
+MIPS, there is an opcode for <B>add</B>.  
+<P>
+  The opcode in MIPS ISA is only 6 bits.  Ordinarily, this means there
+are only 64 possible instructions.  Even for a RISC ISA, which typically
+has few instructions, 64 is quite small.  For <I>R-type</I> instructions,
+an additional 6 bits are used (B<sub>5-0</sub>) called the <I>function</I>.
+Thus, the 6 bits of the opcode and the 6 bits of the function specify
+the kind of instruction for <I>R-type</I> instructions.
+<P>
+  <LI> <B>rd</B> (B<sub>25-21</sub>)
+<P>
+  This is the <I>destination register</I>.  The destination register
+is the register where the result of the operation is stored.
+<P>
+  <LI> <B>rs</B> (B<sub>20-16</sub>)
+<P>
+  This is the first <I>source register</I>.  The source register
+is the register that holds one of the arguments of the operation.
+<P>
+  <LI> <B>rt</B> (B<sub>15-11</sub>)
+<P>
+  This is the second <I>source register</I>. 
+<P>
+  <LI> <B>shift amount</B> (B<sub>10-6</sub>)
+<P>
+   The amount of bits to shift.  Used in shift instructions.
+<P>
+  <LI> <B>function</B> (B<sub>5-0</sub>)
+<P>
+   An additional 6 bits used to specify the operation, in
+addition to the opcode.
+</UL>
+
+<H3>
+I-type instructions
+</H3>
+  I-type is short for "immediate type".  The format of an
+I-type instuction looks like:
+<P>
+<CENTER>
+<TABLE border=1 cellpadding=3>
+<TR bgcolor=pink align=center>
+  <TD>
+     <B>B<sub>31-26</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>25-21</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>20-16</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>15-0</sub> </B>
+  </TD>
+</TR>
+
+<TR align=center>
+  <TD>
+     <B> &nbsp; opcode &nbsp; </B>
+  </TD>
+  <TD>
+     <B> register <B>s</B> </B>
+  </TD>
+  <TD>
+     <B> register <B>t</B> </B>
+  </TD>
+  <TD>
+     <B> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+immediate
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </B>
+  </TD>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+   The prototypical I-type instruction looks like:
+<FONT size=+3>
+<PRE>
+add $rt, $rs, immed
+</PRE>
+</FONT>
+  In this case, <B>$rt</B> is the destination register,
+and <B>$rs</B> is the only source register.   It is unusual
+that <B>$rd</B> is not used, and that <B>$rd</B> does not
+appear in bit positions <B>B<sub>25-21</sub></B> for both
+R-type and I-type instructions.  Presumably, the designers
+of the MIPS ISA had their reasons for not making the destination
+register at a particular location for R-type and I-type.
+<P>
+   The semantics of the <B>addi</B> instruction are;
+<FONT size=+3>
+<PRE>
+R[t] = R[s] + (IR<sub>15</sub>)<sup>16</sup> IR<sub>15-0</sub>
+</PRE>
+</FONT>
+  where IR refers to the instruction register, the register
+where the current instruction is stored.  (IR<sub>15</sub>)<sup>16</sup>
+means that bit <B>B<sub>15</sub></B> of the instruction register
+(which is the sign bit of the immediate value) is repeated 16 times.
+This is then followed by IR<sub>15-0</sub>, which is the 16 bits
+of the immediate value.
+<P>
+   Basically, the semantics says to sign-extend the immediate value to
+32 bits, add it (using signed addition) to register <B>R[s]</B>, and
+store the result in register <B>$rt</B>.
+<P>
+
+<H3>
+J-type instructions
+</H3>
+  J-type is short for "jump type".  The format of an
+J-type instuction looks like:
+<P>
+<CENTER>
+<TABLE border=1 cellpadding=3>
+<TR bgcolor=pink align=center>
+  <TD>
+     <B>B<sub>31-26</sub> </B>
+  </TD>
+  <TD>
+     <B>B<sub>25-0</sub> </B>
+  </TD>
+</TR>
+
+<TR align=center>
+  <TD>
+     <B> &nbsp; opcode &nbsp; </B>
+  </TD>
+  <TD>
+     <B> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+target
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </B>
+  </TD>
+</TR>
+</TABLE>
+</CENTER>
+<P>
+   The prototypical I-type instruction looks like:
+<FONT size=+3>
+<PRE>
+j target
+</PRE>
+</FONT>
+   The semantics of the <B>j</B> instruction (<B>j</B> means jump)
+are:
+<FONT size=+3>
+<PRE>
+PC <- PC<sub>31-28</sub> IR<sub>25-0</sub> 00
+</PRE>
+</FONT>
+  where PC is the program counter, which stores the current
+address of the instruction being executed.  You update
+the PC by using the upper 4 bits of the program counter,
+followed by the 26 bits of the target (which is the lower
+26 bits of the instruction register), followed by two 0's,
+which creates a 32 bit address.  The jump instruction will
+be explained in more detail in a future set of notes.
+<H3>
+Why Five Bits?
+</H3>
+   If you look at the <B>R-type</B> and <B>I-type</B>
+instructions, you will see 5 bits reserved for each
+register.  You might wonder why.
+<P>
+   MIPS supports 32 integer registers.  To specify each
+register, the register are identified with a number from 0 to
+31.  It takes <B>log<sub>2</sub> 32 = 5</B> bits to specify
+one of 32 registers.
+<P>
+   If MIPS has 64 register, you would need 6 bits to specify the
+register.
+<P>
+   The register number is specified using unsigned binary.  Thus,
+00000 refers to <B>$r0</B> and 11111 refers to register <B>$r31</B>.
+
+<H3>
+Why Study Instruction Formats
+</H3>
+   You might wonder why it's important to study instruction formats.
+They seem to be arbitrarily constructed.  Yet, they aren't.  For
+example, it's quite useful to have the opcode be the same size and
+the same location.  It's useful to know the exact bits used for
+the immediate value.  This makes decoding much quicker, and the
+hardware to handle instruction decoding that much simpler.
+<P>
+   Furthermore, you begin to realize what information the instructions
+store.  For example, it's not all that obvious that immediate values
+are stored as part of the instruction for <B>I-type</I> instructions.
+<P>
+   If you know that, for example, <B>addi</B> does signed addition,
+then you can also conclude that the immediate value is represented
+in 2C.  Also, to add the immediate value to a 32-bit register value
+would mean sign-extending the immediate value to 32 bits.
+<P>
+   However, not all I-type instructions encode the 16 bit
+immediate in 2C.  For example, <B>addiu</B> (add immediate unsigned)
+interprets the 16 bits as UB.  It zero-extends the immediate
+and then adds it to the value stored in a 32 bit register.
+<H3>
+Three Operand Instructions
+</H3>
+   Also, notice that the <B>R-type</B> instructions use three
+operands (i.e., arguments).  In earlier, pre-RISC ISAs, memory
+was expensive, so ISA designers tried to minimize the number
+of bits used in an instruction.  This meant that there were often
+two, one, or no operands.   
+<P>
+   How did they manage that?  Here's an example of an instruction
+<FONT size=+2>
+<PRE>
+cisc_add $r1, $r2  # R[1] = R[1] + R[2]
+</PRE>
+</FONT>
+<P> 
+  One way to reduce the total number of operands is to make one operand
+both a source and a destination register.
+<P>
+   Another approach is to use an implicit register.
+<FONT size=+2>
+<PRE>
+acc_add $r2  # Acc = Acc + R[2]
+</PRE>
+</FONT>
+  For example, there may be a special register called the <I>accumulator</I>.
+This register is not mentioned explicitly in the instruction.  Instead,
+it is implied by the opcode.  
+<P>
+   Early personal computers such as the Apple 2, used ISAs with 1 or
+2 registers, and those registers were often part of most instructions,
+thus they didn't have to be specified.
+<P>
+   With memory becoming cheaper, and memory access becoming cheaper,
+it's become easier to devote more bits to an instruction, and to specify
+three operands instead of two.  This makes it more convenient for the
+assembly language programmer.
+
+<H3>
+Summary
+</H3>
+   MIPS instructions fall into three categories: <B>R-type</B>,
+<B>I-type</B>, and <B>J-type</B>.   You should know how the bits
+are laid out (i.e., what the 6 parts of the R-type instruction
+are, and how many bits in each of the 6 parts).  However, it's
+unnecessary to memorize opcodes.
+
+
+</BODY>
+</HTML>
