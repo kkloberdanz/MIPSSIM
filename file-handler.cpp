@@ -11,6 +11,7 @@ void load_from_file(std::string filename) {
     std::ifstream infile(filename);
 
     std::string line;
+    uint64_t instruction;
     while (std::getline(infile, line)) {
         preprocess(line);
         if (is_valid_assembly_code(line)) {

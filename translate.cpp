@@ -15,7 +15,7 @@ void asm_to_machinecode(std::string line) {
 
     // determine which type of instruction (R, J, I) 
     if (opcode_as_string[0] == 'j') {
-        type = J;
+        type = J; 
     } else if ( (opcode_as_string == "addi" ) || 
                 (opcode_as_string == "addiu") ||
                 (opcode_as_string == "andi" ) ||
@@ -32,7 +32,7 @@ void asm_to_machinecode(std::string line) {
         type = R;
     } 
 
-    if (type == I) {
+    if (type == J) {
     }
 
 }
