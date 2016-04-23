@@ -1,6 +1,5 @@
 all:
 	g++ getters.cpp \
-		opcodes.cpp \
 		translate.cpp \
 		file-handler.cpp \
 		errors.cpp \

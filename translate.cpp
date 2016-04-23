@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <cstdlib>
 
 #include "Headers/errors.h"
@@ -44,7 +45,9 @@ uint32_t asm_to_machinecode(std::string line) {
             << std::endl;
         std::exit(EXIT_FAILURE);
     } else if (type == I) { 
-        return returnValue + get_immediate_as_int(line);
+        printf("Opcode: %x returnValue: %x\n", 
+                opcode_as_int, returnValue);
+        return returnValue;
     }
 
 }

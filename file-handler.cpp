@@ -19,7 +19,7 @@ void load_from_file(std::string filename) {
             std::cout << line << std::endl; 
             
             // translate to machine code, add to memory
-            printf("%d\n", asm_to_machinecode(line));
+            printf("%x\n", asm_to_machinecode(line));
         }
     }
 

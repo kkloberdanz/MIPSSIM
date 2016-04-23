@@ -6,8 +6,6 @@
 
 #include <cstdint> 
 
-uint8_t get_opcode_as_int(std::string);
-
 enum Opcodes {
 
     /* Arithmetic and logical instructions */
