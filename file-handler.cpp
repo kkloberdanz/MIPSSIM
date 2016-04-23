@@ -16,10 +16,10 @@ void load_from_file(std::string filename) {
         preprocess(line);
         if (is_valid_assembly_code(line)) {
             // TEST
-            //std::cout << line << std::endl; 
+            std::cout << line << std::endl; 
             
             // translate to machine code, add to memory
-            asm_to_machinecode(line);
+            printf("%d\n", asm_to_machinecode(line));
         }
     }
 

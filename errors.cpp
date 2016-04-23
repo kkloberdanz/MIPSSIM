@@ -17,11 +17,12 @@ void preprocess(std::string & line) {
         if ((line[i] == ';') || (line[i] == '#')) {
             if (line.size() > 1) {
                 line = line.substr(0, i);
+            } else {
+                line = " ";
             }
-        } else {
-            line = " ";
         }
     }
+
 
     if (line[0] == ' ') {
         while (line[0] == ' ') {
@@ -36,7 +37,7 @@ void preprocess(std::string & line) {
 
 bool is_valid_assembly_code(std::string line) {
     // test
-    bool set_debug = false;
+    bool set_debug = true;
 
     std::vector<std::string> valid_opcodes_v = get_valid_opcodes();
     
