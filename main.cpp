@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     std::vector<uint8_t> memory(1000, 0x0);
 
     /* Increment by 4 after each instruction fetched */
-    uint64_t program_counter = 0;
+    uint32_t program_counter = 0;
 
     if (argv[1]) {
         std::string input_file(argv[1]);

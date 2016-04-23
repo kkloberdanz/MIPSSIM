@@ -1,9 +1,12 @@
 #include <iostream>
+#include <cstdlib>
+
 #include "Headers/errors.h"
+#include "Headers/getters.h"
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
 
-void asm_to_machinecode(std::string line) {
+uint32_t asm_to_machinecode(std::string line) {
 
     enum Instruction_type_t { R, J, I };
     Instruction_type_t type;
@@ -32,7 +35,16 @@ void asm_to_machinecode(std::string line) {
         type = R;
     } 
 
-    if (type == J) {
+    /* Jump type opcode, first 6 bits are opcode, last 26 bits
+     * multiplited by 4 gives the memory address to jump to.
+     */ 
+    uint32_t returnValue = opcode_as_int << 26;
+    if (type == J) { 
+        std::cout << "J type instructions are not yet supported, exiting"
+            << std::endl;
+        std::exit(EXIT_FAILURE);
+    } else if (type == I) { 
+        return returnValue + get_immediate_as_int(line);
     }
 
 }
