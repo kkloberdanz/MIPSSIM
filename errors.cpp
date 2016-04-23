@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <map>
 #include "Headers/errors.h"
 
 void report_error(std::string filename, std::string reason) {
@@ -38,7 +37,7 @@ std::string get_opcode(std::string line) {
 
 std::vector<std::string> get_valid_opcodes() {
     std::vector<std::string> valid_opcodes_v { 
-		"add", "addu", "addi", "addiu", "and", "andi", "div", "divu", 
+        "add", "addu", "addi", "addiu", "and", "andi", "div", "divu",
         "mult", "multu", "nor", "or", "ori", "sll", "slv", "sra", "srav", 
         "srl", "srlv", "sub", "subu", "xor", "xori", "lhi", "llo", "slt", 
         "sltu", "slti", "sltiu", "beq", "bgtz", "blez", "bne", "j", 
