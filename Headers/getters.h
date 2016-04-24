@@ -12,5 +12,6 @@ bool is_num(char);
 std::string get_immediate_as_string(std::string);
 uint32_t get_immediate_as_int(std::string);
 uint8_t get_opcode_as_int(std::string);
+std::vector<uint8_t> get_registers(std::string, int);
 
 #endif

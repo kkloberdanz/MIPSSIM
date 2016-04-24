@@ -111,3 +111,37 @@ uint32_t get_immediate_as_int(std::string line) {
     std::stringstream(immediate_str) >> immediate_int;
     return immediate_int;
 }
+
+std::vector<uint8_t> get_registers(std::string line, int type) {
+    /* returns the registers used in the following format:
+     * - For I type:
+     *      register_s, register_t
+     *
+     * - For R type:
+     *      register_s, register_t, register_d
+     */
+    /* Needs work */
+    unsigned int i;
+    std::string reg_num_s = "";
+    uint8_t reg_num_int;
+    std::vector<uint8_t> register_v;
+
+    for (i = 0; i < line.size(); i++) {
+        if (line[i] == '$') {
+            while (line[i] != ',') {
+                if ( (line[i] == '\n') || (line[i] == ' ') ) {
+                    break;
+                }
+                if (is_num(line[i])) {
+                    reg_num_s += line[i];
+                }
+            }
+            /* convert reg number from string to int, append to vector */
+            std::stringstream(reg_num_s) >> reg_num_int; 
+            register_v.push_back(reg_num_int);
+            reg_num_int = 0;
+            reg_num_s = "";
+        }
+    } 
+    return register_v;
+}

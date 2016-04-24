@@ -49,6 +49,7 @@ uint32_t asm_to_machinecode(std::string line) {
 
         /* TODO get register values */
         returnValue += get_immediate_as_int(line);
+        std::vector<uint8_t> registers = get_registers(line, type);
         printf("Opcode: %x returnValue: %x\n", 
                 opcode_as_int, returnValue);
         return returnValue;
