@@ -139,11 +139,13 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
             }
             /* convert reg number from string to int, append to vector */
             std::stringstream(reg_num_s) >> reg_num_int; 
-            std::cout << "Register: " << reg_num_int << std::endl; 
+            reg_num_int = reg_num_int - '0';
+            //std::cout << "Register: " << reg_num_int << std::endl; 
             register_v.push_back(reg_num_int);
             reg_num_int = 0;
             reg_num_s = "";
         }
     } 
+    //printf("register_v[1] = %d, regitser_v[0] = %d\n",register_v[1], register_v[0] );
     return register_v;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bitset>
 #include <stdio.h>
 #include <cstdlib>
 
@@ -47,15 +48,35 @@ uint32_t asm_to_machinecode(std::string line) {
         std::exit(EXIT_FAILURE);
     } else if (type == I) { 
 
-        /* TODO get register values */
         uint16_t immediate;
         std::vector<uint8_t> registers = get_registers(line, type);
-        returnValue += registers[1] << 21;
-        returnValue += registers[0] << 16;
+        returnValue = returnValue + (registers[1] << 21);
+        returnValue = returnValue + (registers[0] << 16);
         immediate = get_immediate_as_int(line);
         returnValue += immediate;
-        printf("Opcode: %x, register_s: %x, register_t: %x, immediate: %x, returnValue: %x\n", opcode_as_int, registers[1], registers[0], immediate, returnValue);
+
+        uint32_t register_s = registers[1];
+        uint32_t register_t = registers[0];
+
+        opcode_as_int = opcode_as_int << 26;
+        register_s    = register_s    << 21;
+        register_t    = register_t    << 16;
+
+        /*
+        std::cout << std::bitset<32>(opcode_as_int) << std::endl;
+        std::cout << std::bitset<32>(register_s) << std::endl;
+        std::cout << std::bitset<32>(register_t) << std::endl;
+        std::cout << std::bitset<32>(immediate) << std::endl;
+        std::cout << std::bitset<32>(returnValue) << std::endl;
+        */
+
+        //printf("Opcode: %x, register_s: %x, register_t: %x, immediate: %x, returnValue: %x\n", opcode_as_int, registers[1], registers[0], immediate, returnValue);
         return returnValue;
+    } else {
+        /* else, R type */ 
+        std::cout << "R type instructions are not yet supported, exiting"
+            << std::endl;
+        std::exit(EXIT_FAILURE);
     }
 
 }
