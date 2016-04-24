@@ -48,10 +48,13 @@ uint32_t asm_to_machinecode(std::string line) {
     } else if (type == I) { 
 
         /* TODO get register values */
-        returnValue += get_immediate_as_int(line);
+        uint16_t immediate;
         std::vector<uint8_t> registers = get_registers(line, type);
-        printf("Opcode: %x returnValue: %x\n", 
-                opcode_as_int, returnValue);
+        returnValue += registers[1] << 21;
+        returnValue += registers[0] << 16;
+        immediate = get_immediate_as_int(line);
+        returnValue += immediate;
+        printf("Opcode: %x, register_s: %x, register_t: %x, immediate: %x, returnValue: %x\n", opcode_as_int, registers[1], registers[0], immediate, returnValue);
         return returnValue;
     }
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstdint>
 #include <sstream>
 
@@ -105,7 +106,7 @@ std::string get_immediate_as_string(std::string line) {
     return immediate_str;
 }
 
-uint32_t get_immediate_as_int(std::string line) {
+uint16_t get_immediate_as_int(std::string line) {
     uint32_t immediate_int;
     std::string immediate_str = get_immediate_as_string(line);
     std::stringstream(immediate_str) >> immediate_int;
@@ -115,11 +116,10 @@ uint32_t get_immediate_as_int(std::string line) {
 std::vector<uint8_t> get_registers(std::string line, int type) {
     /* returns the registers used in the following format:
      * - For I type:
-     *      register_s, register_t
+     *      register_t, register_s
      *
-     * - For R type:
-     *      register_s, register_t, register_d
      */
+
     /* Needs work */
     unsigned int i;
     std::string reg_num_s = "";
@@ -135,9 +135,11 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
                 if (is_num(line[i])) {
                     reg_num_s += line[i];
                 }
+                i++;
             }
             /* convert reg number from string to int, append to vector */
             std::stringstream(reg_num_s) >> reg_num_int; 
+            std::cout << "Register: " << reg_num_int << std::endl; 
             register_v.push_back(reg_num_int);
             reg_num_int = 0;
             reg_num_s = "";
