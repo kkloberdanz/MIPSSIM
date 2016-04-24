@@ -36,15 +36,19 @@ uint32_t asm_to_machinecode(std::string line) {
         type = R;
     } 
 
+    uint32_t returnValue = opcode_as_int << 26;
+
     /* Jump type opcode, first 6 bits are opcode, last 26 bits
      * multiplited by 4 gives the memory address to jump to.
      */ 
-    uint32_t returnValue = opcode_as_int << 26;
     if (type == J) { 
         std::cout << "J type instructions are not yet supported, exiting"
             << std::endl;
         std::exit(EXIT_FAILURE);
     } else if (type == I) { 
+
+        /* TODO get register values */
+        returnValue += get_immediate_as_int(line);
         printf("Opcode: %x returnValue: %x\n", 
                 opcode_as_int, returnValue);
         return returnValue;
