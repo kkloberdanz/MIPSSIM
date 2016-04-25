@@ -52,7 +52,7 @@ enum Opcodes {
     /* Jump Instructions */
     J       = 0x02, // 000010
     JAL     = 0x03, // 000011
-    JALR    = 0x03, // 001001
+    JALR    = 0x09, // 001001
     JR      = 0x08, // 001000
 
     /* Load Instructions */

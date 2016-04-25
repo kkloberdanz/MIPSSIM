@@ -5,9 +5,11 @@
  * Requirements: A version of g++ capable of gnu++14 standard
  */
 #include <iostream>
+#include <cstdlib>
 #include <stdio.h>
 #include <string>
 #include <vector>
+
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
 #include "Headers/errors.h"
@@ -23,26 +25,19 @@
  *     - decide if valid registers
  */
 
+void print_help() {
+    std::cout << "mips-sim: Usage: ./mips-sim FILENAME.s" << std::endl;
+}
+
 int main(int argc, char* argv[]) { 
-
-    /* initialize registers */
-    std::vector<uint32_t> registers(32, 0x0); 
-
-    /* 
-     * Initialize memory 
-     *
-     * Each section of memory is 8 bits wide. 1 word is 32 bits,
-     * so 4 sections of memory make up 1 word.
-     */
-    std::vector<uint8_t> memory(1000, 0x0);
-
-    /* Increment by 4 after each instruction fetched */
-    uint32_t program_counter = 0;
 
     if (argv[1]) {
         std::string input_file(argv[1]);
         load_from_file(input_file);
-    } 
+    } else {
+        print_help();
+        std::exit(EXIT_SUCCESS);
+    }
 
     return 0;
 }

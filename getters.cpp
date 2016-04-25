@@ -149,3 +149,52 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
     //printf("register_v[1] = %d, regitser_v[0] = %d\n",register_v[1], register_v[0] );
     return register_v;
 }
+
+
+Instruction_type_t get_type(std::string line) {
+    // determine which type of instruction (R, J, I) 
+    std::string opcode_as_string = get_opcode(line);
+    if (opcode_as_string[0] == 'j') {
+        return J_type; 
+    } else if ( (opcode_as_string == "addi" ) || 
+                (opcode_as_string == "addiu") ||
+                (opcode_as_string == "andi" ) ||
+                (opcode_as_string == "lhi"  ) ||
+                (opcode_as_string == "mfhi" ) ||
+                (opcode_as_string == "mthi" ) ||
+                (opcode_as_string == "ori"  ) ||
+                (opcode_as_string == "slti" ) ||
+                (opcode_as_string == "sltiu") ||
+                (opcode_as_string == "xori" ) ) {
+
+        return I_type;
+    } else {
+        return R_type;
+    } 
+}
+
+Instruction_type_t get_type(uint32_t machinecode) {
+    // determine which type of instruction (R, J, I) 
+    uint8_t opcode = machinecode / 1000000;
+    if ( (opcode == J   ) ||
+         (opcode == JAL ) ||
+         (opcode == JALR) ||
+         (opcode == JR) ) {
+        return J_type; 
+
+    } else if ( (opcode == ADDI ) || 
+                (opcode == ADDIU) ||
+                (opcode == ANDI ) ||
+                (opcode == LHI  ) ||
+                (opcode == MFHI ) ||
+                (opcode == MTHI ) ||
+                (opcode == ORI  ) ||
+                (opcode == SLTI ) ||
+                (opcode == SLTIU) ||
+                (opcode == XORI ) ) {
+
+        return I_type;
+    } else {
+        return R_type;
+    } 
+}

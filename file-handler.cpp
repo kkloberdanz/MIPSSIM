@@ -6,6 +6,7 @@
 #include "Headers/opcodes.h"
 #include "Headers/errors.h"
 #include "Headers/translate.h"
+#include "Headers/kernel.h"
 
 void load_from_file(std::string filename) {
     std::ifstream infile(filename);
@@ -16,10 +17,11 @@ void load_from_file(std::string filename) {
         preprocess(line);
         if (is_valid_assembly_code(line)) {
             // TEST
-            std::cout << line << std::endl; 
+            //std::cout << line << std::endl; 
             
             // translate to machine code, add to memory
-            printf("%x\n", asm_to_machinecode(line));
+            //printf("%x\n", asm_to_machinecode(line)); 
+            load_in_memory(asm_to_machinecode(line));
         }
     }
 

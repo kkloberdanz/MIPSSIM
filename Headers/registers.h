@@ -17,7 +17,7 @@
  */
 
 #ifndef REGISTERS_H
-#define REGISTERS_H
+#define REGISTERS_H 
 
 enum Registers {
     /* register names and their aliases */ 

@@ -37,7 +37,7 @@ void preprocess(std::string & line) {
 
 bool is_valid_assembly_code(std::string line) {
     // test
-    bool set_debug = true;
+    bool set_debug = false;
 
     std::vector<std::string> valid_opcodes_v = get_valid_opcodes();
     

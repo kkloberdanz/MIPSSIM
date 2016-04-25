@@ -1,6 +1,9 @@
 #ifndef FILE_HANDLER_H
 #define FILE_HANDLER_H
 
-void load_from_file(std::string filename);
+#include <vector>
+#include <cstdint>
+
+void load_from_file(std::string);
 
 #endif
