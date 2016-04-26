@@ -47,12 +47,14 @@ void execute() {
     uint8_t register_s;
     uint16_t immediate;
     uint32_t machinecode = 0;
-    Instruction_type_t type;
+    //Instruction_type_t type;
     while (true) {
         for (i = 0; i < 4; i++) {
-            machinecode += MEMORY[PROGRAM_COUNTER];
-            if (i != 3) {machinecode =  machinecode << 8; }
-            PROGRAM_COUNTER++;
+            machinecode += MEMORY[PROGRAM_COUNTER + i];
+            if (i != 3) {
+                machinecode =  machinecode << 8; 
+            }
+
             if (PROGRAM_COUNTER > MEMORY_SIZE) {
                 std::cout << "*** Out of memory, shutting down ***"
                     << std::endl;
@@ -184,6 +186,7 @@ void execute() {
                 break;
         }
         machinecode = 0;
+        PROGRAM_COUNTER += 4;
     } // end while
 }
 
