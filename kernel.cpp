@@ -186,6 +186,9 @@ void execute() {
                 break;
         }
         machinecode = 0;
+
+        /* This is a temporary fix, in the future, this will be 
+           implemented case by case */
         PROGRAM_COUNTER += 4;
     } // end while
 }
