@@ -170,13 +170,20 @@ void execute() {
                 REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
                 break;
 
+
+            case LW:
+                immediate  =  machinecode % 0x10000;
+                register_s = (machinecode & 0x3e00000) >> 21;
+                register_t = (machinecode & 0x1f0000)  >> 16;
+                REGISTERS[register_t]= 
+                    MEMORY[REGISTERS[register_t] + immediate];
+                break;
+
             case SYSCALL:
                 syscall();
                 break;
         }
-        //PROGRAM_COUNTER++;
         machinecode = 0;
-        //std::exit(EXIT_SUCCESS);
     } // end while
 }
 

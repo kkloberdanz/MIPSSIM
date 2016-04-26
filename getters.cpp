@@ -150,6 +150,7 @@ Instruction_type_t get_type(std::string line) {
                 (opcode_as_string == "ori"  ) ||
                 (opcode_as_string == "slti" ) ||
                 (opcode_as_string == "sltiu") ||
+                (opcode_as_string == "lw") ||
                 (opcode_as_string == "xori" ) ) {
 
         return I_type;
@@ -176,6 +177,7 @@ Instruction_type_t get_type(uint32_t machinecode) {
                 (opcode == ORI  ) ||
                 (opcode == SLTI ) ||
                 (opcode == SLTIU) ||
+                (opcode == LW) ||
                 (opcode == XORI ) ) {
 
         return I_type;

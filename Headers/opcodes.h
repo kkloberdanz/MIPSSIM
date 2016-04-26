@@ -29,7 +29,8 @@ enum Opcodes {
     SRL     = 0x02, // 000010
     SRLV    = 0x06, // 000110
     SUB     = 0x22, // 100010
-    SUBU    = 0x23, // 100011
+    //SUBU    = 0x23, // 100011
+    SUBU    = 0x0f, // This needs to be changed
     XOR     = 0x26, // 100110
     XORI    = 0x0E, // 001110
 

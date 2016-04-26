@@ -24,7 +24,7 @@ syscall            ; print to screen
 
 ; Print Newline
 addi $r4, $r0, 10  ; load newline char into $a0
-syscall            ; print newline to screen
+syscall            ; print newline to screen 
 
 ; Halt
 addi $r2, $r0, 10  ; load 10 into $v0
