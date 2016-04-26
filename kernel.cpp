@@ -75,9 +75,101 @@ void execute() {
                 //printf("immediate: %x\n", immediate);
                 register_s = (machinecode & 0x3e00000) >> 21;
                 register_t = (machinecode & 0x1f0000)  >> 16;
-                REGISTERS[register_t] = REGISTERS[register_s] + immediate;
+                REGISTERS[register_t]= REGISTERS[register_s] + immediate;
+                break;
+
+            case ADDIU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case AND:
+                std::cout << "Not yet implemented" << std::endl;
                 break;
                 
+            case ANDI:
+                immediate  =  machinecode % 0x10000;
+                //printf("immediate: %x\n", immediate);
+                register_s = (machinecode & 0x3e00000) >> 21;
+                register_t = (machinecode & 0x1f0000)  >> 16;
+                REGISTERS[register_t]= REGISTERS[register_s] & immediate; 
+                break; 
+
+            case DIV:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case DIVU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case MULT:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case MULTU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case NOR:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case OR:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case ORI:
+                immediate  =  machinecode % 0x10000;
+                //printf("immediate: %x\n", immediate);
+                register_s = (machinecode & 0x3e00000) >> 21;
+                register_t = (machinecode & 0x1f0000)  >> 16;
+                REGISTERS[register_t]= REGISTERS[register_s] | immediate; 
+                break;
+
+            case SLL:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SLV:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SRA:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SRAV:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SRL:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SRLV:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SUB:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+                
+            case SUBU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case XOR: 
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case XORI:
+                immediate  =  machinecode % 0x10000;
+                //printf("immediate: %x\n", immediate);
+                register_s = (machinecode & 0x3e00000) >> 21;
+                register_t = (machinecode & 0x1f0000)  >> 16;
+                REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
+                break;
+
             case SYSCALL:
                 syscall();
                 break;

@@ -76,6 +76,7 @@ enum Opcodes {
     /* Exception and Interrupt Instructions */
     TRAP    = 0x1A, // 011010 
 
+    // TODO: actual encoding '0000 00-- ---- ---- ---- ---- --00 1100'
     SYSCALL = 0x14 // Not an actual opcode, now used as a placeholder,
                    // until/unless I find a better way to handle syscalls
 };
