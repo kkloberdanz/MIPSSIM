@@ -8,13 +8,8 @@
 #include "Headers/errors.h"
 
 std::vector<std::string> get_valid_opcodes() {
-    std::vector<std::string> valid_opcodes_v { 
-        "add", "addu", "addi", "addiu", "and", "andi", "div", "divu",
-        "mult", "multu", "nor", "or", "ori", "sll", "slv", "sra", "srav", 
-        "srl", "srlv", "sub", "subu", "xor", "xori", "lhi", "llo", "slt", 
-        "sltu", "slti", "sltiu", "beq", "bgtz", "blez", "bne", "j", 
-        "jal", "jalr", "jr", "lb", "lbu", "lh", "lhu", "lw", "sb", 
-        "sh", "sw", "mfhi", "mflo", "mthi", "mtlo", "trap" };
+    std::vector<std::string> valid_opcodes_v {
+    "add", "addi", "addiu", "addu", "and", "andi", "beq", "bgtz", "blez", "bne", "div", "divu", "j", "jal", "jalr", "jr", "lb", "lbu", "lh", "lhi", "lhu", "llo", "lw", "mfhi", "mflo", "mthi", "mtlo", "mult", "multu", "nor", "or", "ori", "sb", "sh", "sll", "slt", "slti", "sltiu", "sltu", "slv", "sra", "srav", "srl", "srlv", "sub", "subu", "sw", "syscall", "trap", "xor", "xori" }; 
     return valid_opcodes_v; 
 }
 
@@ -44,21 +39,11 @@ std::string get_opcode(std::string line) {
 uint8_t get_opcode_as_int(std::string opcode) { 
 
     std::vector<uint8_t>    valid_opcodes_as_int_v {
-        ADD, ADDI, ADDIU, ADDU, AND, ANDI, BEQ, BGTZ, BLEZ, 
-        BNE, DIV, DIVU, J, JAL, JALR, JR, LB, LBU, LH, 
-        LHI, LHU, LLO, LW, MFHI, MFLO, MTHI, MTLO, MULT, 
-        MULTU, NOR, OR, ORI, SB, SH, SLL, SLT, SLTI, 
-        SLTIU, SLTU, SLV, SRA, SRAV, SRL, SRLV, SUB, SUBU, 
-        SW, TRAP, XOR, XORI 
+           ADD, ADDI, ADDIU, ADDU, AND, ANDI, BEQ, BGTZ, BLEZ, BNE, DIV, DIVU, J, JAL, JALR, JR, LB, LBU, LH, LHI, LHU, LLO, LW, MFHI, MFLO, MTHI, MTLO, MULT, MULTU, NOR, OR, ORI, SB, SH, SLL, SLT, SLTI, SLTIU, SLTU, SLV, SRA, SRAV, SRL, SRLV, SUB, SUBU, SW, SYSCALL, TRAP, XOR, XORI 
     };
 
     std::vector<std::string> valid_opcode_names_v { 
-        "add", "addi", "addiu", "addu", "and", "andi", "beq", "bgtz", 
-        "blez", "bne", "div", "divu", "j", "jal", "jalr", "jr", "lb", 
-        "lbu", "lh", "lhi", "lhu", "llo", "lw", "mfhi", "mflo", "mthi", 
-        "mtlo", "mult", "multu", "nor", "or", "ori", "sb", "sh", "sll", 
-        "slt", "slti", "sltiu", "sltu", "slv", "sra", "srav", "srl", 
-        "srlv", "sub", "subu", "sw", "trap", "xor", "xori" 
+           "add", "addi", "addiu", "addu", "and", "andi", "beq", "bgtz", "blez", "bne", "div", "divu", "j", "jal", "jalr", "jr", "lb", "lbu", "lh", "lhi", "lhu", "llo", "lw", "mfhi", "mflo", "mthi", "mtlo", "mult", "multu", "nor", "or", "ori", "sb", "sh", "sll", "slt", "slti", "sltiu", "sltu", "slv", "sra", "srav", "srl", "srlv", "sub", "subu", "sw", "syscall", "trap", "xor", "xori"
     }; 
 
     int index;

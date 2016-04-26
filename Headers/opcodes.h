@@ -74,7 +74,10 @@ enum Opcodes {
     MTLO    = 0x13, // 010011
 
     /* Exception and Interrupt Instructions */
-    TRAP    = 0x1A  // 011010 
+    TRAP    = 0x1A, // 011010 
+
+    SYSCALL = 0x14 // Not an actual opcode, now used as a placeholder,
+                   // until/unless I find a better way to handle syscalls
 };
 
 #endif

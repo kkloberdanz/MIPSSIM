@@ -13,6 +13,7 @@
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
 #include "Headers/errors.h"
+#include "Headers/kernel.h"
 #include "Headers/file-handler.h"
 
 /*
@@ -38,6 +39,9 @@ int main(int argc, char* argv[]) {
         print_help();
         std::exit(EXIT_SUCCESS);
     }
+
+    execute();
+
 
     return 0;
 }

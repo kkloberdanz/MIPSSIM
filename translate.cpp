@@ -15,6 +15,9 @@ uint32_t asm_to_machinecode(std::string line) {
 
     // get machine code for the opcode
     int opcode_as_int = get_opcode_as_int(opcode_as_string);
+    if (opcode_as_int == SYSCALL) {
+        return (SYSCALL << 26);
+    }
 
     Instruction_type_t type = get_type(opcode_as_string);
     uint32_t returnValue = opcode_as_int << 26;
@@ -35,6 +38,7 @@ uint32_t asm_to_machinecode(std::string line) {
         immediate = get_immediate_as_int(line);
         returnValue += immediate;
 
+        /*
         uint32_t register_s = registers[1];
         uint32_t register_t = registers[0];
 
@@ -42,7 +46,6 @@ uint32_t asm_to_machinecode(std::string line) {
         register_s    = register_s    << 21;
         register_t    = register_t    << 16;
 
-        /*
         std::cout << std::bitset<32>(opcode_as_int) << std::endl;
         std::cout << std::bitset<32>(register_s) << std::endl;
         std::cout << std::bitset<32>(register_t) << std::endl;

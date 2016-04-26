@@ -12,7 +12,6 @@ void load_from_file(std::string filename) {
     std::ifstream infile(filename);
 
     std::string line;
-    uint32_t instruction;
     while (std::getline(infile, line)) {
         preprocess(line);
         if (is_valid_assembly_code(line)) {
@@ -21,6 +20,7 @@ void load_from_file(std::string filename) {
             
             // translate to machine code, add to memory
             //printf("%x\n", asm_to_machinecode(line)); 
+            std::cout << line << std::endl;
             load_in_memory(asm_to_machinecode(line));
         }
     }
