@@ -2,7 +2,7 @@
  * Programmer: Kyle Kloberdanz
  * Date Created: 21 Apr 2016
  *
- * Requirements: A version of g++ capable of gnu++14 standard
+ * Requirements: A version of g++ capable of gnu++11 standard
  */
 #include <iostream>
 #include <cstdlib>
@@ -18,16 +18,6 @@
 #include "Headers/kernel.h"
 #include "Headers/file-handler.h"
 
-/*
- * TODO:
- * (1) translate.cpp 
- *     - assembly to machine code
- *     - Use format type
- *
- * (2) errors.cpp
- *     - decide if valid registers
- */
-
 void print_help() {
     std::cout << "mips-sim:\n"
                  "Usage: ./mips-sim FILENAME.s\n"
@@ -39,6 +29,9 @@ void print_help() {
 }
 
 int main(int argc, char* argv[]) { 
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+    std::cout << "Warning -- Not tested for windows!" << std::endl;
+#endif
 
     // show the assembly being loaded into memory
     bool show = false;

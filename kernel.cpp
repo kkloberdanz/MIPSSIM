@@ -31,7 +31,7 @@ void load_in_memory(uint32_t machinecode) {
         MEMORY[PROGRAM_COUNTER] = machinecode / 0x1000000;
         machinecode = machinecode << 8;
         PROGRAM_COUNTER++;
-        if (PROGRAM_COUNTER >= MEMORY_SIZE - 1) {
+        if (PROGRAM_COUNTER + i >= MEMORY_SIZE - 1) {
             std::cout << "*** Out of memory, shutting down ***"
                 << std::endl;
             std::exit(EXIT_FAILURE);
