@@ -6,9 +6,11 @@
  */
 #include <iostream>
 #include <cstdlib>
-#include <stdio.h>
 #include <string>
 #include <vector>
+
+#include <stdio.h>
+#include <string.h>
 
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
@@ -27,16 +29,35 @@
  */
 
 void print_help() {
-    std::cout << "mips-sim: Usage: ./mips-sim FILENAME.s" << std::endl;
+    std::cout << "mips-sim:\n"
+                 "Usage: ./mips-sim FILENAME.s\n"
+                 "  --show "
+                 "      show assembly as it is loaded into memory\n" 
+                 "  --help "
+                 "      show this menu\n" 
+    << std::endl;
 }
 
 int main(int argc, char* argv[]) { 
+
+    // show the assembly being loaded into memory
+    bool show = false;
+
+    int i;
+    for (i = 1; i < argc; i++) { 
+        if ( strcmp(argv[i], "--help") == 0) {
+            print_help();
+            std::exit(EXIT_SUCCESS);
+        } else if ( strcmp(argv[i], "--show") == 0) {
+            show = true;
+        }
+    }
 
     if (argv[1]) {
         std::string input_file(argv[1]);
         std::cout << "*** Loading from file: '" << argv[1] << "' ***" 
             << std::endl;
-        load_from_file(input_file);
+        load_from_file(input_file, show);
     } else {
         print_help();
         std::exit(EXIT_SUCCESS);
