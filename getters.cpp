@@ -185,3 +185,32 @@ Instruction_type_t get_type(uint32_t machinecode) {
         return R_type;
     } 
 }
+
+uint8_t get_opcode_from_machinecode(uint32_t machinecode) {
+    return (machinecode & 0xfc000000) >> 26;
+}
+
+uint8_t get_register_s(uint32_t machinecode) {
+    return (machinecode & 0x3e00000) >> 21;
+}
+
+uint8_t get_register_t(uint32_t machinecode) { 
+    return (machinecode & 0x1f0000)  >> 16;
+}
+
+uint8_t get_shift_amount(uint32_t machinecode) {
+    return (machinecode & 0x7c0) >> 6;
+}
+
+uint16_t get_immediate_from_machinecode(uint32_t machinecode) {
+    return (machinecode & 0xffff);
+}
+
+uint8_t get_function_from_machinecode(uint32_t machinecode) {
+    return (machinecode & 0x6);
+}
+
+uint32_t get_jump_target(uint32_t machinecode) {
+    return (machinecode & 0x3ffffff);
+}
+

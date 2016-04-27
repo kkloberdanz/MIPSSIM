@@ -45,7 +45,9 @@ void execute() {
     uint8_t opcode;
     uint8_t register_t;
     uint8_t register_s;
+    uint8_t shift_ammount;
     uint16_t immediate;
+    uint32_t jump_target;
     uint32_t machinecode = 0;
     //Instruction_type_t type;
     while (true) {
@@ -65,6 +67,14 @@ void execute() {
         //printf("Machine code: %x\n", MEMORY[PROGRAM_COUNTER]);
         opcode = machinecode >> 26;
         //printf("machinecode: %x, opcode: %x, addi: %x\n", machinecode, opcode, ADDI);
+
+        opcode        = get_opcode_from_machinecode(machinecode);
+        register_t    = get_register_t(machinecode);
+        register_s    = get_register_s(machinecode);
+        shift_ammount = get_shift_amount(machinecode);
+        immediate     = get_immediate_from_machinecode(machinecode);
+        jump_target   = get_jump_target(machinecode);
+
         switch (opcode) {
             case ADD: 
                 break;
@@ -72,11 +82,7 @@ void execute() {
             case ADDU:
                 break;
 
-            case ADDI:
-                immediate  =  machinecode % 0x10000;
-                //printf("immediate: %x\n", immediate);
-                register_s = (machinecode & 0x3e00000) >> 21;
-                register_t = (machinecode & 0x1f0000)  >> 16;
+            case ADDI: 
                 REGISTERS[register_t]= REGISTERS[register_s] + immediate;
                 break;
 
@@ -89,10 +95,6 @@ void execute() {
                 break;
                 
             case ANDI:
-                immediate  =  machinecode % 0x10000;
-                //printf("immediate: %x\n", immediate);
-                register_s = (machinecode & 0x3e00000) >> 21;
-                register_t = (machinecode & 0x1f0000)  >> 16;
                 REGISTERS[register_t]= REGISTERS[register_s] & immediate; 
                 break; 
 
@@ -121,10 +123,6 @@ void execute() {
                 break;
 
             case ORI:
-                immediate  =  machinecode % 0x10000;
-                //printf("immediate: %x\n", immediate);
-                register_s = (machinecode & 0x3e00000) >> 21;
-                register_t = (machinecode & 0x1f0000)  >> 16;
                 REGISTERS[register_t]= REGISTERS[register_s] | immediate; 
                 break;
 
@@ -165,18 +163,11 @@ void execute() {
                 break;
 
             case XORI:
-                immediate  =  machinecode % 0x10000;
-                //printf("immediate: %x\n", immediate);
-                register_s = (machinecode & 0x3e00000) >> 21;
-                register_t = (machinecode & 0x1f0000)  >> 16;
                 REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
                 break;
 
 
             case LW:
-                immediate  =  machinecode % 0x10000;
-                register_s = (machinecode & 0x3e00000) >> 21;
-                register_t = (machinecode & 0x1f0000)  >> 16;
                 REGISTERS[register_t]= 
                     MEMORY[REGISTERS[register_t] + immediate];
                 break;

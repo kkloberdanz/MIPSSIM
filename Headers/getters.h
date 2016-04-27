@@ -18,4 +18,13 @@ std::vector<uint8_t> get_registers(std::string, int);
 Instruction_type_t get_type(std::string);
 Instruction_type_t get_type(uint32_t);
 
+uint8_t get_opcode_from_machinecode(uint32_t);
+
+uint8_t get_register_s(uint32_t);
+
+uint8_t get_register_t(uint32_t);
+uint8_t get_shift_amount(uint32_t);
+uint16_t get_immediate_from_machinecode(uint32_t);
+uint8_t get_function_from_machinecode(uint32_t);
+uint32_t get_jump_target(uint32_t);
 #endif
