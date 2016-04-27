@@ -4,6 +4,6 @@
 #include <vector>
 #include <cstdint>
 
-void load_from_file(std::string);
+void load_from_file(std::string, bool);
 
 #endif

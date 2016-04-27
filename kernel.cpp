@@ -9,7 +9,7 @@
 #include "Headers/getters.h"
 #include "Headers/opcodes.h"
 
-#define MEMORY_SIZE 100
+#define MEMORY_SIZE 500
 
 /* initialize registers */
 std::vector<uint32_t> REGISTERS(32, 0x0); 
@@ -188,6 +188,65 @@ void execute() {
 void syscall() {
     //printf("REGISTERS[V0] = %x\n", REGISTERS[V0]);
     switch (REGISTERS[V0]) {
+        case 1:
+            /* print int */
+            printf("%d\n", REGISTERS[A0]);
+            break;
+
+        case 2:
+            /* print float */
+            std::cout << 
+                "*** Floating point opperations not yet supported" 
+             << std::endl;
+            break;
+
+        case 3: 
+            /* print double */
+            std::cout << 
+                "*** Floating point opperations not yet supported" 
+             << std::endl;
+            break;
+
+        case 4:
+            /* print string */
+            std::cout << 
+                "*** String opperations not yet supported" 
+             << std::endl;
+            break;
+
+        case 5:
+            /* read int */
+            std::cin >> REGISTERS[V0];
+            break;
+
+        case 6: 
+            /* print double */
+            std::cout << 
+                "*** Floating point opperations not yet supported" 
+             << std::endl;
+            break;
+
+        case 7: 
+            /* print double */
+            std::cout << 
+                "*** Floating point opperations not yet supported" 
+             << std::endl;
+            break; 
+
+        case 8:
+            /* read string */
+            std::cout << 
+                "*** String opperations not yet supported" 
+             << std::endl; 
+            break; 
+
+        case 9:
+            /* allocate memory */
+            std::cout << 
+                "*** Memory allocation not yet supported" 
+             << std::endl; 
+            break;
+
         case 10:
             /* exit */
             std::cout << "*** Program terminated SUCCESSFULLY ***" 
@@ -200,6 +259,10 @@ void syscall() {
             printf("%c", REGISTERS[A0]);
             break;
 
+        case 12:
+            /* read char */
+            break;
+
         default:
             std::cout << "*** Unknown syscall, exiting ***" << std::endl;
             std::exit(EXIT_FAILURE);
@@ -208,4 +271,12 @@ void syscall() {
 }
 
 void computer_dump() {
+    unsigned int i;
+    for (i = 0; i < REGISTERS.size(); i++) {
+        printf("Register %d: %x\n", i, REGISTERS[i]);
+    } 
+
+    for (i = 0; i < MEMORY.size(); i++) {
+        printf("Memory %d: %x\n", i, MEMORY[i]);
+    } 
 }

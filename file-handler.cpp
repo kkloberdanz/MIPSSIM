@@ -8,7 +8,7 @@
 #include "Headers/translate.h"
 #include "Headers/kernel.h"
 
-void load_from_file(std::string filename) {
+void load_from_file(std::string filename, bool show) {
     std::ifstream infile(filename);
 
     std::string line;
@@ -20,7 +20,9 @@ void load_from_file(std::string filename) {
             
             // translate to machine code, add to memory
             //printf("%x\n", asm_to_machinecode(line)); 
-            //std::cout << line << std::endl;
+            if (show) {
+                std::cout << line << std::endl;
+            }
             load_in_memory(asm_to_machinecode(line));
         }
     }

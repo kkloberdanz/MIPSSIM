@@ -1,28 +1,72 @@
-;addi $r8, $r0, 100 ; load 100 into t0
 
-addi $r2, $r0, 11  ; load 11 into $v0
 
-; This section prints "It works!" to the screen
-addi $r4, $r0, 73  ; load into $a0
+
+; This section prints "enter an int: " to the screen
+addi $r2, $r0, 11  ; load 11 into $v0, print char
+addi $r4, $r0, 101 ; load into $a0
 syscall            ; print to screen
-addi $r4, $r0, 116 ; load into $a0
+addi $r4, $r0, 110 ; load into $a0
 syscall            ; print to screen
-addi $r4, $r0, 32  ; load into $a0
+addi $r4, $r0, 116
 syscall            ; print to screen
-addi $r4, $r0, 119 ; load into $a0
-syscall            ; print to screen
-addi $r4, $r0, 111 ; load into $a0
+addi $r4, $r0, 101 ; load into $a0
 syscall            ; print to screen
 addi $r4, $r0, 114 ; load into $a0
 syscall            ; print to screen
-addi $r4, $r0, 107 ; load into $a0
+addi $r4, $r0, 32  ; load into $a0
 syscall            ; print to screen
-addi $r4, $r0, 115 ; load into $a0
+addi $r4, $r0, 97  ; load into $a0
 syscall            ; print to screen
-addi $r4, $r0,  33 ; load into $a0
+addi $r4, $r0, 110 ; load into $a0
 syscall            ; print to screen
+addi $r4, $r0, 32  ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 105 ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 110 ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 116 ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 58  ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 32  ; load into $a0
+syscall            ; print to screen 
+
+; TEST
+addi $r2, $r0, 5
+syscall             ; read int 
+addi $r8, $r2, 0  ; move the user's input int to $t0
+; TEST
+
+; This section prints "your int: " to the screen
+addi $r2, $r0, 11  ; load 11 into $v0, print char
+addi $r4, $r0, 121 ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 111 ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 117
+syscall            ; print to screen
+addi $r4, $r0, 114 ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 32  ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 105  ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 110  ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 116 ; load into $a0
+syscall            ; print to screen
+addi $r4, $r0, 58  ; load into $a0
+syscall            ; print to screen 
+addi $r4, $r0, 32 ; load into $a0
+syscall            ; print to screen 
+
+addi $r4, $r8, 0
+addi $r2, $r0, 1  ; load 1 into $v0, print int
+syscall 
 
 ; Print Newline
+addi $r2, $r0, 11  ; load 11 into $v0, print char
 addi $r4, $r0, 10  ; load newline char into $a0
 syscall            ; print newline to screen 
 
@@ -30,9 +74,5 @@ syscall            ; print newline to screen
 addi $r2, $r0, 10  ; load 10 into $v0
 syscall            ; halt program
 
-;       add $r1, $r2, $r3
 
-;andi $r3, $r4, 9
-;ori $r5, $r6, 9
 
-;asdf $r3, $r4, $r5
