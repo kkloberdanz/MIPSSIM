@@ -48,6 +48,7 @@ int main(int argc, char* argv[]) {
         if ( strcmp(argv[i], "--help") == 0) {
             print_help();
             std::exit(EXIT_SUCCESS);
+
         } else if ( strcmp(argv[i], "--show") == 0) {
             show = true;
         }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 #include "Headers/file-handler.h"
 #include "Headers/opcodes.h"
@@ -10,6 +11,11 @@
 
 void load_from_file(std::string filename, bool show) {
     std::ifstream infile(filename);
+    if (!infile) {
+        std::cout << "*** File: '" << filename << 
+            "' does not exist. Exiting ***" << std::endl;
+        std::exit(EXIT_FAILURE);
+    }
 
     std::string line;
     while (std::getline(infile, line)) {
