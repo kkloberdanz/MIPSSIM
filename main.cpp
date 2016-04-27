@@ -34,14 +34,16 @@ int main(int argc, char* argv[]) {
 
     if (argv[1]) {
         std::string input_file(argv[1]);
+        std::cout << "*** Loading from file: '" << argv[1] << "' ***" 
+            << std::endl;
         load_from_file(input_file);
     } else {
         print_help();
         std::exit(EXIT_SUCCESS);
     }
 
-    execute();
-
+    std::cout << "*** Running program ***" << std::endl;
+    execute(); 
 
     return 0;
 }

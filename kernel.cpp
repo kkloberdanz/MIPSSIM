@@ -77,9 +77,11 @@ void execute() {
 
         switch (opcode) {
             case ADD: 
+                std::cout << "Not yet implemented" << std::endl;
                 break;
 
             case ADDU:
+                std::cout << "Not yet implemented" << std::endl;
                 break;
 
             case ADDI: 
@@ -164,8 +166,7 @@ void execute() {
 
             case XORI:
                 REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
-                break;
-
+                break; 
 
             case LW:
                 REGISTERS[register_t]= 
