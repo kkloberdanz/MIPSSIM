@@ -78,6 +78,16 @@ enum Opcodes {
     TRAP    = 0x1A, // 011010 
 
     // TODO: actual encoding '0000 00-- ---- ---- ---- ---- --00 1100'
+    /*
+     * For the future:
+     *  Define opcode ZERO = 0x00
+     *  in kernel.cpp, have a case ZERO
+     *  Within this case, have another switch for
+     *  the function codes, to specify what to do.
+     *
+     *  Make a file 'Headers/func.h' to contain the different function 
+     *  codes.
+     */
     SYSCALL = 0x14 // Not an actual opcode, now used as a placeholder,
                    // until/unless I find a better way to handle syscalls
 };
