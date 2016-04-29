@@ -1,5 +1,5 @@
 /*
- * Programmer: Kyle Kloberdanz
+ * Programmer  : Kyle Kloberdanz
  * Date Created: 21 Apr 2016
  *
  * Requirements: A version of g++ capable of gnu++11 standard

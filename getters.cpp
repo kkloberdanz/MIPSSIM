@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <sstream>
 
+#include "Headers/func.h"
 #include "Headers/getters.h"
 #include "Headers/opcodes.h"
 #include "Headers/search.h"

@@ -9,40 +9,19 @@
 enum Opcodes {
 
     /* Arithmetic and logical instructions */
-    ADD     = 0x20, // 100000
-    ADDU    = 0x21, // 100001
+    FUNC    = 0x00,
     ADDI    = 0x08, // 001000
     ADDIU   = 0x09, // 001001
-    AND     = 0x24, // 100100
     ANDI    = 0x0c, // 001100
-    DIV     = 0x1A, // 011010
-    DIVU    = 0x1B, // 011011
-    MULT    = 0x18, // 011000
-    MULTU   = 0x19, // 011001
-    NOR     = 0x27, // 100111
-    OR      = 0x25, // 100101
     ORI     = 0x0D, // 001101
-    SLL     = 0x00, // 000000
     SLV     = 0x04, // 000100
-    SRA     = 0x03, // 000011
     SRAV    = 0x07, // 000111
     SRL     = 0x02, // 000010
-    SRLV    = 0x06, // 000110
-    SUB     = 0x22, // 100010
-    //SUBU    = 0x23, // 100011
-    SUBU    = 0x0f, // This needs to be changed
-    XOR     = 0x26, // 100110
     XORI    = 0x0E, // 001110
 
     /* Constant-Manipulating Instructions */
     LHI     = 0x19, // 011001
     LLO     = 0x18, // 011000
-
-    /* Comparison Instructions */
-    SLT     = 0x2A, // 101010
-    SLTU    = 0x2B, // 101011
-    SLTI    = 0x0A, // 001010
-    SLTIU   = 0x09, // 001001
 
     /* Branch Instructions */
     BEQ     = 0x04, // 000100 
@@ -54,7 +33,6 @@ enum Opcodes {
     J       = 0x02, // 000010
     JAL     = 0x03, // 000011
     JALR    = 0x09, // 001001
-    JR      = 0x08, // 001000
 
     /* Load Instructions */
     LB      = 0x20, // 100000
@@ -69,27 +47,15 @@ enum Opcodes {
     SW      = 0x2B, // 101011
 
     /* Data Movement Instructions */
-    MFHI    = 0x10, // 010000
-    MFLO    = 0x12, // 010010
     MTHI    = 0x11, // 010001
     MTLO    = 0x13, // 010011
 
     /* Exception and Interrupt Instructions */
     TRAP    = 0x1A, // 011010 
 
-    // TODO: actual encoding '0000 00-- ---- ---- ---- ---- --00 1100'
-    /*
-     * For the future:
-     *  Define opcode ZERO = 0x00
-     *  in kernel.cpp, have a case ZERO
-     *  Within this case, have another switch for
-     *  the function codes, to specify what to do.
-     *
-     *  Make a file 'Headers/func.h' to contain the different function 
-     *  codes.
-     */
-    SYSCALL = 0x14 // Not an actual opcode, now used as a placeholder,
-                   // until/unless I find a better way to handle syscalls
+    // TODO, this does not belong here. Syscall belongs in func.h
+    // This requires a lot of work, and will be done at a future date
+    SYSCALL = 0x14 
 };
 
 #endif

@@ -1,6 +1,5 @@
 
 
-
 ; This section prints "enter an int: " to the screen
 addi $r2, $r0, 11  ; load 11 into $v0, print char
 addi $r4, $r0, 101 ; load into $a0

@@ -8,8 +8,9 @@
 #include "Headers/registers.h"
 #include "Headers/getters.h"
 #include "Headers/opcodes.h"
+#include "Headers/func.h"
 
-#define MEMORY_SIZE 500
+#define MEMORY_SIZE 1000
 
 /* initialize registers */
 std::vector<uint32_t> REGISTERS(32, 0x0); 
@@ -46,6 +47,7 @@ void execute() {
     uint8_t register_t;
     uint8_t register_s;
     uint8_t shift_ammount;
+    uint8_t func;
     uint16_t immediate;
     uint32_t jump_target;
     uint32_t machinecode = 0;
@@ -65,7 +67,7 @@ void execute() {
         }
         //std::cout << "Execution Program Counter: " << PROGRAM_COUNTER << std::endl;
         //printf("Machine code: %x\n", MEMORY[PROGRAM_COUNTER]);
-        opcode = machinecode >> 26;
+        //opcode = machinecode >> 26;
         //printf("machinecode: %x, opcode: %x, addi: %x\n", machinecode, opcode, ADDI);
 
         opcode        = get_opcode_from_machinecode(machinecode);
@@ -74,15 +76,82 @@ void execute() {
         shift_ammount = get_shift_amount(machinecode);
         immediate     = get_immediate_from_machinecode(machinecode);
         jump_target   = get_jump_target(machinecode);
+        func          = get_function_from_machinecode(machinecode);
 
         switch (opcode) {
-            case ADD: 
-                std::cout << "Not yet implemented" << std::endl;
-                break;
 
-            case ADDU:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
+            case SYSCALL:
+                /* this actually belongs in func, but requires a near 
+                 * entire re-write of translate.cpp. This will be done 
+                 * at a future date */
+                syscall();
+                break; 
+
+            /* func dictates what to do, opcode is zero */
+            case FUNC: 
+                switch (func) {
+
+                    case ADD: 
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case ADDU:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break; 
+
+                    case AND:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+ 
+                    case DIV:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break; 
+
+                    case DIVU:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case MULT:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case MULTU:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case NOR:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case OR:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case SLL:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case SRLV:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case SUB:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+                        
+                    case SUBU:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case XOR: 
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    default:
+                        std::cout << "Not a valid func" << std::endl;
+                        std::exit(EXIT_FAILURE);
+                        break;
+                } // end case FUNC
 
             case ADDI: 
                 REGISTERS[register_t]= REGISTERS[register_s] + immediate;
@@ -90,47 +159,15 @@ void execute() {
 
             case ADDIU:
                 std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case AND:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-                
+                break; 
+                       
             case ANDI:
                 REGISTERS[register_t]= REGISTERS[register_s] & immediate; 
                 break; 
 
-            case DIV:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case DIVU:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case MULT:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case MULTU:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case NOR:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case OR:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
             case ORI:
                 REGISTERS[register_t]= REGISTERS[register_s] | immediate; 
-                break;
-
-            case SLL:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
+                break; 
 
             case SLV:
                 std::cout << "Not yet implemented" << std::endl;
@@ -146,23 +183,7 @@ void execute() {
 
             case SRL:
                 std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case SRLV:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case SUB:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-                
-            case SUBU:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case XOR: 
-                std::cout << "Not yet implemented" << std::endl;
-                break;
+                break; 
 
             case XORI:
                 REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
@@ -173,9 +194,6 @@ void execute() {
                     MEMORY[REGISTERS[register_t] + immediate];
                 break;
 
-            case SYSCALL:
-                syscall();
-                break;
         }
         machinecode = 0;
 
@@ -197,21 +215,21 @@ void syscall() {
             /* print float */
             std::cout << 
                 "*** Floating point opperations not yet supported" 
-             << std::endl;
+            << std::endl;
             break;
 
         case 3: 
             /* print double */
             std::cout << 
                 "*** Floating point opperations not yet supported" 
-             << std::endl;
+            << std::endl;
             break;
 
         case 4:
             /* print string */
             std::cout << 
                 "*** String opperations not yet supported" 
-             << std::endl;
+            << std::endl;
             break;
 
         case 5:
@@ -223,28 +241,28 @@ void syscall() {
             /* print double */
             std::cout << 
                 "*** Floating point opperations not yet supported" 
-             << std::endl;
+            << std::endl;
             break;
 
         case 7: 
             /* print double */
             std::cout << 
                 "*** Floating point opperations not yet supported" 
-             << std::endl;
+            << std::endl;
             break; 
 
         case 8:
             /* read string */
             std::cout << 
                 "*** String opperations not yet supported" 
-             << std::endl; 
+            << std::endl; 
             break; 
 
         case 9:
             /* allocate memory */
             std::cout << 
                 "*** Memory allocation not yet supported" 
-             << std::endl; 
+            << std::endl; 
             break;
 
         case 10:
@@ -261,6 +279,10 @@ void syscall() {
 
         case 12:
             /* read char */
+            std::cout << 
+                "** Read char, not yet implemented ***"
+            << std::endl;
+            scanf("%c", &REGISTERS[A0]);
             break;
 
         default:
