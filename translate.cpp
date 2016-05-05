@@ -12,13 +12,18 @@
 uint32_t asm_to_machinecode(std::string line) {
 
 
-    std::string opcode_as_string = get_opcode(line);
+    if (line.substr(0, 7) == "syscall") {
+        return SYSCALL;
+    }
 
+    std::string opcode_as_string = get_opcode(line);
     // get machine code for the opcode
     int opcode_as_int = get_opcode_as_int(opcode_as_string);
+    /*
     if (opcode_as_int == SYSCALL) {
         return (SYSCALL << 26);
     }
+    */
 
     Instruction_type_t type = get_type(opcode_as_string);
     uint32_t returnValue = opcode_as_int << 26;

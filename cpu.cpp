@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
+
 #include <stdio.h>
 
 #include "Headers/cpu.h"
@@ -54,6 +55,13 @@ void execute() {
     uint32_t machinecode = 0;
     //Instruction_type_t type;
     while (true) {
+
+
+        if (REGISTERS[0] != 0) {
+            std::cout << "Problem here" << std::endl;
+            std::exit(EXIT_FAILURE);
+        }
+
         for (i = 0; i < 4; i++) {
             machinecode += MEMORY[PROGRAM_COUNTER + i];
             if (i != 3) {
@@ -82,8 +90,9 @@ void execute() {
 
         /*
         printf("opcode:        %d\n", opcode);
-        printf("register_t :   %d\n", register_t);
+        printf("register_t:   %d\n", register_t);
         printf("register_s:    %d\n", register_s);
+        printf("register_d:    %d\n", register_d);
         printf("shift_ammount: %d\n", shift_ammount);
         printf("immediate:     %d\n", immediate);
         printf("jump_target:   %d\n", jump_target);
@@ -93,53 +102,61 @@ void execute() {
 
         switch (opcode) {
 
-            case SYSCALL:
-                /* this actually belongs in func, but requires a near 
-                 * entire re-write of translate.cpp. This will be done 
-                 * at a future date */
-                syscall();
-                break; 
-
             /* func dictates what to do, opcode is zero */
             case FUNC: 
+
                 switch (func) {
 
-                    std::cout << "FUNC" << std::endl;
+                    case SYSCALL:
+                        syscall();
+                        break; 
+
+                    //std::cout << "FUNC" << std::endl;
                     case ADD: 
-                        // add register_t + register_s, store in register_d
-                        REGISTERS[register_d] = REGISTERS[register_s] + REGISTERS[register_t];
+                        // add register_t, register_s, store in register_d
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] + REGISTERS[register_t];
                         break;
 
                     case ADDU:
-                        REGISTERS[register_d] = REGISTERS[register_s] + REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] + REGISTERS[register_t];
                         break; 
 
                     case AND:
-                        REGISTERS[register_d] = REGISTERS[register_s] & REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] & REGISTERS[register_t];
                         break;
  
                     case DIV:
-                        REGISTERS[register_d] = REGISTERS[register_s] / REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] / REGISTERS[register_t];
                         break; 
 
                     case DIVU:
-                        REGISTERS[register_d] = REGISTERS[register_s] / REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] / REGISTERS[register_t];
                         break;
 
                     case MULT:
-                        REGISTERS[register_d] = REGISTERS[register_s] * REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] * REGISTERS[register_t];
                         break;
 
                     case MULTU:
-                        REGISTERS[register_d] = REGISTERS[register_s] * REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] * REGISTERS[register_t];
                         break;
 
                     case NOR:
-                        REGISTERS[register_d] = ~(REGISTERS[register_s] | REGISTERS[register_t]);
+                        REGISTERS[register_d] = 
+                            ~(REGISTERS[register_s] | 
+                              REGISTERS[register_t]);
                         break;
 
                     case OR:
-                        REGISTERS[register_d] = REGISTERS[register_s] | REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] | REGISTERS[register_t];
                         break;
 
                     case SLL:
@@ -151,15 +168,18 @@ void execute() {
                         break;
 
                     case SUB:
-                        REGISTERS[register_d] = REGISTERS[register_s] - REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] - REGISTERS[register_t];
                         break;
                         
                     case SUBU:
-                        REGISTERS[register_d] = REGISTERS[register_s] - REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] - REGISTERS[register_t];
                         break;
 
                     case XOR: 
-                        REGISTERS[register_d] = REGISTERS[register_s] ^ REGISTERS[register_t];
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] ^ REGISTERS[register_t];
                         break;
 
                     default:
@@ -167,6 +187,7 @@ void execute() {
                         std::exit(EXIT_FAILURE);
                         break;
                 } // end case FUNC
+                break;
 
             case ADDI: 
                 REGISTERS[register_t]= REGISTERS[register_s] + immediate;
@@ -207,8 +228,7 @@ void execute() {
             case LW:
                 REGISTERS[register_t]= 
                     MEMORY[REGISTERS[register_t] + immediate];
-                break;
-
+                break; 
         }
         machinecode = 0;
 
@@ -302,7 +322,9 @@ void syscall() {
         }
 
         default:
-            std::cout << "*** Unknown syscall, exiting ***" << std::endl;
+            printf("*** Unknown syscall, '%d' exiting ***\n", 
+                    REGISTERS[V0]);
+            computer_dump();
             std::exit(EXIT_FAILURE);
             break;
     }
@@ -311,10 +333,13 @@ void syscall() {
 void computer_dump() {
     unsigned int i;
     for (i = 0; i < REGISTERS.size(); i++) {
-        printf("Register %d: %x\n", i, REGISTERS[i]);
+        printf("Register %2d: %d\n", i, REGISTERS[i]);
     } 
+    puts("");
 
+    /*
     for (i = 0; i < MEMORY.size(); i++) {
         printf("Memory %d: %x\n", i, MEMORY[i]);
     } 
+    */
 }

@@ -4,7 +4,6 @@ addi $r9, $r0, 54
 add  $r4, $r8, $r9
 
 ; print integer
-t0 to $v0
 addi $r2, $r0, 1  ; load 1 into $v0, print int
 syscall 
 
@@ -19,7 +18,6 @@ addi $r9, $r0, 54
 sub  $r4, $r8, $r9
 
 ; print integer
-t0 to $v0
 addi $r2, $r0, 1  ; load 1 into $v0, print int
 syscall 
 

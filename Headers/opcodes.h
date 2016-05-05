@@ -55,7 +55,7 @@ enum Opcodes {
 
     // TODO, this does not belong here. Syscall belongs in func.h
     // This requires a lot of work, and will be done at a future date
-    SYSCALL = 0x14 
+    //SYSCALL = 0x14 
 };
 
 #endif

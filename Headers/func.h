@@ -48,7 +48,7 @@ enum Func {
      *  Make a file 'Headers/func.h' to contain the different function 
      *  codes.
      */
-    //SYSCALL = 0x0c
+    SYSCALL = 0x0c
 };
 
 #endif
