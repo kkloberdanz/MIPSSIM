@@ -10,7 +10,7 @@
 #include "Headers/opcodes.h"
 #include "Headers/func.h"
 
-#define MEMORY_SIZE 1000
+#define MEMORY_SIZE 32000
 
 /* initialize registers */
 std::vector<uint32_t> REGISTERS(32, 0x0); 
@@ -278,12 +278,13 @@ void syscall() {
             break;
 
         case 12:
+        {
             /* read char */
-            std::cout << 
-                "** Read char, not yet implemented ***"
-            << std::endl;
-            scanf("%c", &REGISTERS[A0]);
+            char user_input;
+            scanf("%c", &user_input);
+            REGISTERS[V0] = (uint32_t)user_input;
             break;
+        }
 
         default:
             std::cout << "*** Unknown syscall, exiting ***" << std::endl;
