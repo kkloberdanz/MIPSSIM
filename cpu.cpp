@@ -111,35 +111,35 @@ void execute() {
                         break;
 
                     case ADDU:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] + REGISTERS[register_t];
                         break; 
 
                     case AND:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] & REGISTERS[register_t];
                         break;
  
                     case DIV:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] / REGISTERS[register_t];
                         break; 
 
                     case DIVU:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] / REGISTERS[register_t];
                         break;
 
                     case MULT:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] * REGISTERS[register_t];
                         break;
 
                     case MULTU:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] * REGISTERS[register_t];
                         break;
 
                     case NOR:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = ~(REGISTERS[register_s] | REGISTERS[register_t]);
                         break;
 
                     case OR:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] | REGISTERS[register_t];
                         break;
 
                     case SLL:
@@ -151,15 +151,15 @@ void execute() {
                         break;
 
                     case SUB:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] - REGISTERS[register_t];
                         break;
                         
                     case SUBU:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] - REGISTERS[register_t];
                         break;
 
                     case XOR: 
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = REGISTERS[register_s] ^ REGISTERS[register_t];
                         break;
 
                     default:
@@ -223,7 +223,7 @@ void syscall() {
     switch (REGISTERS[V0]) {
         case 1:
             /* print int */
-            printf("%d\n", REGISTERS[A0]);
+            printf("%d", REGISTERS[A0]);
             break;
 
         case 2:
