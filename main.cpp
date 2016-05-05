@@ -15,16 +15,18 @@
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
 #include "Headers/errors.h"
-#include "Headers/kernel.h"
+#include "Headers/cpu.h"
 #include "Headers/file-handler.h"
 
 void print_help() {
     std::cout << "mips-sim:\n"
                  "Usage: ./mips-sim FILENAME.s\n"
-                 "  --show "
-                 "      show assembly as it is loaded into memory\n" 
                  "  --help "
                  "      show this menu\n" 
+                 "  --show "
+                 "      show assembly as it is loaded into memory\n" 
+                 "  --dump "
+                 "      (Work in progress) show computer dump after execution\n" 
     << std::endl;
 }
 
@@ -36,6 +38,9 @@ int main(int argc, char* argv[]) {
     // show the assembly being loaded into memory
     bool show = false;
 
+    // Computer dump after execution
+    bool dump = false;
+
     int i;
     for (i = 1; i < argc; i++) { 
         if ( strcmp(argv[i], "--help") == 0) {
@@ -44,6 +49,8 @@ int main(int argc, char* argv[]) {
 
         } else if ( strcmp(argv[i], "--show") == 0) {
             show = true;
+        } else if ( strcmp(argv[i], "--dump") == 0){
+            dump = true;
         }
     }
 

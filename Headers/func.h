@@ -41,7 +41,7 @@ enum Func {
     /*
      * For the future:
      *  Define opcode ZERO = 0x00
-     *  in kernel.cpp, have a case ZERO
+     *  in cpu.cpp, have a case ZERO
      *  Within this case, have another switch for
      *  the function codes, to specify what to do.
      *

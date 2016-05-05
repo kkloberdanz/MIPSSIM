@@ -1,6 +1,6 @@
 all:
 	g++ main.cpp \
-		kernel.cpp \
+		cpu.cpp \
 		getters.cpp \
 		translate.cpp \
 		file-handler.cpp \

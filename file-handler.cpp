@@ -7,7 +7,7 @@
 #include "Headers/opcodes.h"
 #include "Headers/errors.h"
 #include "Headers/translate.h"
-#include "Headers/kernel.h"
+#include "Headers/cpu.h"
 
 void load_from_file(std::string filename, bool show) {
     std::ifstream infile(filename);
