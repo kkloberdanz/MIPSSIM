@@ -7,6 +7,7 @@
 #include "Headers/getters.h"
 #include "Headers/opcodes.h"
 #include "Headers/registers.h"
+#include "Headers/func.h"
 
 uint32_t asm_to_machinecode(std::string line) {
 
@@ -57,9 +58,42 @@ uint32_t asm_to_machinecode(std::string line) {
         return returnValue;
     } else {
         /* else, R type */ 
-        std::cout << "R type instructions are not yet supported, exiting"
-            << std::endl;
-        std::exit(EXIT_FAILURE);
+        //std::cout << "R type instructions are not yet supported, exiting"
+            //<< std::endl;
+        //std::exit(EXIT_FAILURE);
+
+        uint32_t register_s;
+        uint32_t register_t;
+        uint32_t register_d;
+        uint8_t  shift_ammount = 0;
+        uint8_t  function = get_opcode_as_int(opcode_as_string); 
+
+        std::vector<uint8_t> registers = get_registers(line, type);
+        /*
+        printf("registers[0] = %d\n", registers[0]);
+        printf("registers[1] = %d\n", registers[1]);
+        printf("registers[2] = %d\n", registers[2]);
+        */
+
+        register_d = registers[0];
+        register_s = registers[1];
+        register_t = registers[2];
+
+
+        register_s = register_s << 21;
+        register_t = register_t << 16;
+        register_d = register_d << 11;
+
+        /*
+        std::cout << "opcode: " << std::endl;
+        std::cout << std::bitset<32>(returnValue) << std::endl;
+        std::cout << std::bitset<32>(register_s) << std::endl;
+        std::cout << std::bitset<32>(register_t) << std::endl;
+        std::cout << std::bitset<32>(register_d) << std::endl;
+        */
+        returnValue = register_s + register_d + register_t + function;
+        //std::cout << std::bitset<32>(returnValue) << std::endl;
+        return returnValue;
     }
 
 }

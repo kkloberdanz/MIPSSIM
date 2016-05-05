@@ -23,6 +23,7 @@ uint8_t get_opcode_from_machinecode(uint32_t);
 uint8_t get_register_s(uint32_t);
 
 uint8_t get_register_t(uint32_t);
+uint8_t get_register_d(uint32_t);
 uint8_t get_shift_amount(uint32_t);
 uint16_t get_immediate_from_machinecode(uint32_t);
 uint8_t get_function_from_machinecode(uint32_t);

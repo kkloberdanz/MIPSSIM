@@ -7,6 +7,7 @@
 #include "Headers/opcodes.h"
 #include "Headers/search.h"
 #include "Headers/errors.h"
+#include "Headers/helpers.h"
 
 std::vector<std::string> get_valid_opcodes() {
     std::vector<std::string> valid_opcodes_v {
@@ -104,6 +105,8 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
      * - For I type:
      *      register_t, register_s
      *
+     * - For R type:
+     *      register_d, register_s, register_t
      */
 
     /* Needs work */
@@ -123,16 +126,20 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
                 }
                 i++;
             }
+            //std::cout << reg_num_int << std::endl;
             /* convert reg number from string to int, append to vector */
             std::stringstream(reg_num_s) >> reg_num_int; 
             reg_num_int = reg_num_int - '0';
             //std::cout << "Register: " << reg_num_int << std::endl; 
+            //printf("Register: %d\n", reg_num_int);
             register_v.push_back(reg_num_int);
+            //print_vector(register_v);
             reg_num_int = 0;
             reg_num_s = "";
         }
     } 
     //printf("register_v[1] = %d, regitser_v[0] = %d\n",register_v[1], register_v[0] );
+    //print_vector(register_v);
     return register_v;
 }
 
@@ -199,6 +206,10 @@ uint8_t get_register_t(uint32_t machinecode) {
     return (machinecode & 0x1f0000)  >> 16;
 }
 
+uint8_t get_register_d(uint32_t machinecode) {
+    return (machinecode & 0xF800)    >> 11;
+}
+
 uint8_t get_shift_amount(uint32_t machinecode) {
     return (machinecode & 0x7c0) >> 6;
 }
@@ -208,7 +219,7 @@ uint16_t get_immediate_from_machinecode(uint32_t machinecode) {
 }
 
 uint8_t get_function_from_machinecode(uint32_t machinecode) {
-    return (machinecode & 0x6);
+    return (machinecode & 0x3f);
 }
 
 uint32_t get_jump_target(uint32_t machinecode) {

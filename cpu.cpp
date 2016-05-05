@@ -46,6 +46,7 @@ void execute() {
     uint8_t opcode;
     uint8_t register_t;
     uint8_t register_s;
+    uint8_t register_d;
     uint8_t shift_ammount;
     uint8_t func;
     uint16_t immediate;
@@ -73,10 +74,22 @@ void execute() {
         opcode        = get_opcode_from_machinecode(machinecode);
         register_t    = get_register_t(machinecode);
         register_s    = get_register_s(machinecode);
+        register_d    = get_register_d(machinecode);
         shift_ammount = get_shift_amount(machinecode);
         immediate     = get_immediate_from_machinecode(machinecode);
         jump_target   = get_jump_target(machinecode);
         func          = get_function_from_machinecode(machinecode);
+
+        /*
+        printf("opcode:        %d\n", opcode);
+        printf("register_t :   %d\n", register_t);
+        printf("register_s:    %d\n", register_s);
+        printf("shift_ammount: %d\n", shift_ammount);
+        printf("immediate:     %d\n", immediate);
+        printf("jump_target:   %d\n", jump_target);
+        printf("func:          %d\n", func);
+        puts("");
+        */
 
         switch (opcode) {
 
@@ -91,8 +104,10 @@ void execute() {
             case FUNC: 
                 switch (func) {
 
+                    std::cout << "FUNC" << std::endl;
                     case ADD: 
-                        std::cout << "Not yet implemented" << std::endl;
+                        // add register_t + register_s, store in register_d
+                        REGISTERS[register_d] = REGISTERS[register_s] + REGISTERS[register_t];
                         break;
 
                     case ADDU:
