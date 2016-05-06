@@ -15,11 +15,11 @@
 #define MEMORY_SIZE 32000
 
 /* initialize registers */
-std::vector<uint32_t> REGISTERS(32, 0x0); 
+std::vector<int32_t> REGISTERS(32, 0x0); 
 
 /* special registers, non-addressable */
-uint32_t              HI = 0;
-uint32_t              LO = 0;
+int32_t              HI = 0;
+int32_t              LO = 0;
 
 /* 
  * Initialize memory 
@@ -27,12 +27,12 @@ uint32_t              LO = 0;
  * Each section of memory is 8 bits wide. 1 word is 32 bits,
  * so 4 sections of memory make up 1 word.
  */
-std::vector<uint8_t> MEMORY(MEMORY_SIZE, 0x0);
+std::vector<int8_t> MEMORY(MEMORY_SIZE, 0x0);
 
 /* Increment by 4 after each instruction fetched */
-uint32_t PROGRAM_COUNTER = 0; 
+int32_t PROGRAM_COUNTER = 0; 
 
-void load_in_memory(uint32_t machinecode) {
+void load_in_memory(int32_t machinecode) {
     //printf("LOADING: PROGRAM_COUNTER: %x\n", PROGRAM_COUNTER);
     for (int i = 0; i < 4; i++) {
         MEMORY[PROGRAM_COUNTER] = machinecode / 0x1000000;
@@ -49,15 +49,15 @@ void load_in_memory(uint32_t machinecode) {
 void execute() { 
     PROGRAM_COUNTER = 0;
     int i;
-    uint8_t opcode;
-    uint8_t register_t;
-    uint8_t register_s;
-    uint8_t register_d;
-    uint8_t shift_ammount;
-    uint8_t func;
-    uint16_t immediate;
-    uint32_t jump_target;
-    uint32_t machinecode = 0;
+    int8_t opcode;
+    int8_t register_t;
+    int8_t register_s;
+    int8_t register_d;
+    int8_t shift_ammount;
+    int8_t func;
+    int16_t immediate;
+    //int32_t jump_target;
+    int32_t machinecode = 0;
     //Instruction_type_t type;
     while (true) { 
 
@@ -86,7 +86,7 @@ void execute() {
         register_d    = get_register_d(machinecode);
         shift_ammount = get_shift_amount(machinecode);
         immediate     = get_immediate_from_machinecode(machinecode);
-        jump_target   = get_jump_target(machinecode);
+        //jump_target   = get_jump_target(machinecode);
         func          = get_function_from_machinecode(machinecode);
 
         /*
@@ -120,8 +120,8 @@ void execute() {
                         break;
 
                     case ADDU:
-                        REGISTERS[register_d] = 
-                            REGISTERS[register_s] + REGISTERS[register_t];
+                        //REGISTERS[register_d] = 
+                            //(uint32_t)(REGISTERS[register_s] + REGISTERS[register_t]);
                         break; 
 
                     case AND:
@@ -136,7 +136,7 @@ void execute() {
 
                     case DIVU:
                         REGISTERS[register_d] = 
-                            REGISTERS[register_s] / REGISTERS[register_t];
+                            (uint32_t)(REGISTERS[register_s] / REGISTERS[register_t]);
                         break;
 
                     case MULT:
@@ -146,7 +146,7 @@ void execute() {
 
                     case MULTU:
                         REGISTERS[register_d] = 
-                            REGISTERS[register_s] * REGISTERS[register_t];
+                            (uint32_t)(REGISTERS[register_s] * REGISTERS[register_t]);
                         break;
 
                     case NOR:
@@ -192,8 +192,9 @@ void execute() {
                         break;
                         
                     case SUBU:
-                        REGISTERS[register_d] = 
-                            REGISTERS[register_s] - REGISTERS[register_t];
+                        std::cout << "Not yet implemented" << std::endl;
+                        //REGISTERS[register_d] = 
+                            //REGISTERS[register_s] - REGISTERS[register_t];
                         break;
 
                     case XOR: 
@@ -222,11 +223,12 @@ void execute() {
 
             /* Immediate instructions */
             case ADDI: 
+                //printf("register_s = %d, immediate = %d, sum = %d\n", REGISTERS[register_s], immediate, immediate + REGISTERS[register_s]);
                 REGISTERS[register_t]= REGISTERS[register_s] + immediate;
                 break;
 
             case ADDIU:
-                std::cout << "Not yet implemented" << std::endl;
+                REGISTERS[register_t] = (uint32_t)(REGISTERS[register_s] + immediate);
                 break; 
                        
             case ANDI:
@@ -299,7 +301,7 @@ void execute() {
                 break;
 
             case SW:
-                std::cout << "Not yet implemented" << std::endl;
+                MEMORY[register_s + immediate] = register_t;
                 break; 
 
             case MTHI:
@@ -402,7 +404,7 @@ void syscall() {
             /* read char */
             char user_input;
             scanf("%c", &user_input);
-            REGISTERS[V0] = (uint32_t)user_input;
+            REGISTERS[V0] = (int32_t)user_input;
             break;
         }
 

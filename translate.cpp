@@ -9,7 +9,7 @@
 #include "Headers/registers.h"
 #include "Headers/func.h"
 
-uint32_t asm_to_machinecode(std::string line) {
+int32_t asm_to_machinecode(std::string line) {
 
 
     if (line.substr(0, 7) == "syscall") {
@@ -26,7 +26,7 @@ uint32_t asm_to_machinecode(std::string line) {
     */
 
     Instruction_type_t type = get_type(opcode_as_string);
-    uint32_t returnValue = opcode_as_int << 26;
+    int32_t returnValue = opcode_as_int << 26;
 
     /* Jump type opcode, first 6 bits are opcode, last 26 bits
      * multiplited by 4 gives the memory address to jump to.
@@ -37,16 +37,16 @@ uint32_t asm_to_machinecode(std::string line) {
         std::exit(EXIT_FAILURE);
     } else if (type == I_type) { 
 
-        uint16_t immediate;
-        std::vector<uint8_t> registers = get_registers(line, type);
+        int16_t immediate;
+        std::vector<int8_t> registers = get_registers(line, type);
         returnValue = returnValue + (registers[1] << 21);
         returnValue = returnValue + (registers[0] << 16);
         immediate = get_immediate_as_int(line);
         returnValue += immediate;
 
         /*
-        uint32_t register_s = registers[1];
-        uint32_t register_t = registers[0];
+        int32_t register_s = registers[1];
+        int32_t register_t = registers[0];
 
         opcode_as_int = opcode_as_int << 26;
         register_s    = register_s    << 21;
@@ -67,13 +67,13 @@ uint32_t asm_to_machinecode(std::string line) {
             //<< std::endl;
         //std::exit(EXIT_FAILURE);
 
-        uint32_t register_s;
-        uint32_t register_t;
-        uint32_t register_d;
-        uint8_t  shift_ammount = 0;
-        uint8_t  function = get_opcode_as_int(opcode_as_string); 
+        int32_t register_s;
+        int32_t register_t;
+        int32_t register_d;
+        //int8_t  shift_ammount = 0;
+        int8_t  function = get_opcode_as_int(opcode_as_string); 
 
-        std::vector<uint8_t> registers = get_registers(line, type);
+        std::vector<int8_t> registers = get_registers(line, type);
         /*
         printf("registers[0] = %d\n", registers[0]);
         printf("registers[1] = %d\n", registers[1]);

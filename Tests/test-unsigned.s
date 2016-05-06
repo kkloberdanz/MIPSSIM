@@ -1,5 +1,5 @@
-addi $r8, $r0, 21
-addi $r9, $r0, 54
+addiu $r8, $r0, 21
+addiu $r9, $r0, -54
 
 add  $r4, $r8, $r9
 

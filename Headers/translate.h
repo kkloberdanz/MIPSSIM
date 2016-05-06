@@ -3,6 +3,6 @@
 
 #include <cstdint>
 
-uint32_t asm_to_machinecode(std::string);
+int32_t asm_to_machinecode(std::string);
 
 #endif

@@ -38,9 +38,9 @@ std::string get_opcode(std::string line) {
     return opcode;
 } 
 
-uint8_t get_opcode_as_int(std::string opcode) { 
+int8_t get_opcode_as_int(std::string opcode) { 
 
-    std::vector<uint8_t>    valid_opcodes_as_int_v {
+    std::vector<int8_t>    valid_opcodes_as_int_v {
            ADD, ADDI, ADDIU, ADDU, AND, ANDI, BEQ, BGTZ, BLEZ, BNE, DIV, DIVU, J, JAL, JR, LB, LBU, LH, LHI, LHU, LLO, LW, MFHI, MFLO, MTHI, MTLO, MULT, MULTU, NOR, OR, ORI, SB, SH, SLL, SLT, SLTI, SLTIU, SLTU, SLV, SRA, SRAV, SRL, SRLV, SUB, SUBU, SW, SYSCALL, TRAP, XOR, XORI 
     };
 
@@ -75,6 +75,7 @@ bool is_num(char c) {
 
 std::string get_immediate_as_string(std::string line) { 
     unsigned int i;
+    bool is_negative = false;
     std::string immediate_str = "";
     for (i = 0; i < line.size(); i++) {
         
@@ -87,20 +88,30 @@ std::string get_immediate_as_string(std::string line) {
 
         /* remove opcode */
         if ( is_num(line[i]) ) {
+            if (i > 0) {
+                if (line[i-1] == '-') {
+                    is_negative = true;
+                }
+            }
             immediate_str = immediate_str + line[i];
         }
     }
-    return immediate_str;
+
+    if (is_negative) {
+        return '-' + immediate_str;
+    } else {
+        return immediate_str;
+    }
 }
 
-uint16_t get_immediate_as_int(std::string line) {
-    uint32_t immediate_int;
+int16_t get_immediate_as_int(std::string line) {
+    int32_t immediate_int;
     std::string immediate_str = get_immediate_as_string(line);
     std::stringstream(immediate_str) >> immediate_int;
     return immediate_int;
 }
 
-std::vector<uint8_t> get_registers(std::string line, int type) {
+std::vector<int8_t> get_registers(std::string line, int type) {
     /* returns the registers used in the following format:
      * - For I type:
      *      register_t, register_s
@@ -112,8 +123,8 @@ std::vector<uint8_t> get_registers(std::string line, int type) {
     /* Needs work */
     unsigned int i;
     std::string reg_num_s = "";
-    uint8_t reg_num_int;
-    std::vector<uint8_t> register_v;
+    int8_t reg_num_int;
+    std::vector<int8_t> register_v;
 
     for (i = 0; i < line.size(); i++) {
         if (line[i] == '$') {
@@ -167,9 +178,9 @@ Instruction_type_t get_type(std::string line) {
     } 
 }
 
-Instruction_type_t get_type(uint32_t machinecode) {
+Instruction_type_t get_type(int32_t machinecode) {
     // determine which type of instruction (R, J, I) 
-    uint8_t opcode = machinecode / 1000000;
+    int8_t opcode = machinecode / 1000000;
     if ( (opcode == J   ) ||
          (opcode == JAL ) ||
          (opcode == JR) ) {
@@ -193,35 +204,35 @@ Instruction_type_t get_type(uint32_t machinecode) {
     } 
 }
 
-uint8_t get_opcode_from_machinecode(uint32_t machinecode) {
+int8_t get_opcode_from_machinecode(int32_t machinecode) {
     return (machinecode & 0xfc000000) >> 26;
 }
 
-uint8_t get_register_s(uint32_t machinecode) {
+int8_t get_register_s(int32_t machinecode) {
     return (machinecode & 0x3e00000) >> 21;
 }
 
-uint8_t get_register_t(uint32_t machinecode) { 
+int8_t get_register_t(int32_t machinecode) { 
     return (machinecode & 0x1f0000)  >> 16;
 }
 
-uint8_t get_register_d(uint32_t machinecode) {
+int8_t get_register_d(int32_t machinecode) {
     return (machinecode & 0xF800)    >> 11;
 }
 
-uint8_t get_shift_amount(uint32_t machinecode) {
+int8_t get_shift_amount(int32_t machinecode) {
     return (machinecode & 0x7c0) >> 6;
 }
 
-uint16_t get_immediate_from_machinecode(uint32_t machinecode) {
+int16_t get_immediate_from_machinecode(int32_t machinecode) {
     return (machinecode & 0xffff);
 }
 
-uint8_t get_function_from_machinecode(uint32_t machinecode) {
+int8_t get_function_from_machinecode(int32_t machinecode) {
     return (machinecode & 0x3f);
 }
 
-uint32_t get_jump_target(uint32_t machinecode) {
+int32_t get_jump_target(int32_t machinecode) {
     return (machinecode & 0x3ffffff);
 }
 

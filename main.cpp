@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     bool show = false;
 
     // Computer dump after execution
-    bool dump = false;
+    //bool dump = false;
 
     int i;
     for (i = 1; i < argc; i++) { 
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
         } else if ( strcmp(argv[i], "--show") == 0) {
             show = true;
         } else if ( strcmp(argv[i], "--dump") == 0){
-            dump = true;
+            //dump = true;
         }
     }
 

@@ -4,6 +4,6 @@
 #include <vector>
 #include <cstdint>
 
-void print_vector(std::vector<uint8_t> v);
+void print_vector(std::vector<int8_t> v);
 
 #endif
