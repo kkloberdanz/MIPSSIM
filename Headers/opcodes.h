@@ -14,9 +14,6 @@ enum Opcodes {
     ADDIU   = 0x09, // 001001
     ANDI    = 0x0c, // 001100
     ORI     = 0x0D, // 001101
-    SLV     = 0x04, // 000100
-    SRAV    = 0x07, // 000111
-    SRL     = 0x02, // 000010
     XORI    = 0x0E, // 001110
 
     /* Constant-Manipulating Instructions */
@@ -32,7 +29,6 @@ enum Opcodes {
     /* Jump Instructions */
     J       = 0x02, // 000010
     JAL     = 0x03, // 000011
-    JALR    = 0x09, // 001001
 
     /* Load Instructions */
     LB      = 0x20, // 100000
@@ -52,10 +48,6 @@ enum Opcodes {
 
     /* Exception and Interrupt Instructions */
     TRAP    = 0x1A, // 011010 
-
-    // TODO, this does not belong here. Syscall belongs in func.h
-    // This requires a lot of work, and will be done at a future date
-    //SYSCALL = 0x14 
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <cstdlib>
+#include <cassert>
 
 #include <stdio.h>
 
@@ -15,6 +16,10 @@
 
 /* initialize registers */
 std::vector<uint32_t> REGISTERS(32, 0x0); 
+
+/* special registers, non-addressable */
+uint32_t              HI = 0;
+uint32_t              LO = 0;
 
 /* 
  * Initialize memory 
@@ -54,13 +59,9 @@ void execute() {
     uint32_t jump_target;
     uint32_t machinecode = 0;
     //Instruction_type_t type;
-    while (true) {
+    while (true) { 
 
-
-        if (REGISTERS[0] != 0) {
-            std::cout << "Problem here" << std::endl;
-            std::exit(EXIT_FAILURE);
-        }
+        assert(REGISTERS[ZERO] == 0);
 
         for (i = 0; i < 4; i++) {
             machinecode += MEMORY[PROGRAM_COUNTER + i];
@@ -105,13 +106,13 @@ void execute() {
             /* func dictates what to do, opcode is zero */
             case FUNC: 
 
+                /* Register instructions */
                 switch (func) {
 
                     case SYSCALL:
                         syscall();
                         break; 
 
-                    //std::cout << "FUNC" << std::endl;
                     case ADD: 
                         // add register_t, register_s, store in register_d
                         REGISTERS[register_d] = 
@@ -160,12 +161,30 @@ void execute() {
                         break;
 
                     case SLL:
-                        std::cout << "Not yet implemented" << std::endl;
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_t] << shift_ammount;
                         break;
 
                     case SRLV:
+                        REGISTERS[register_d] = 
+                            REGISTERS[register_s] >>REGISTERS[register_t];
+                        break;
+
+                    case SRA:
                         std::cout << "Not yet implemented" << std::endl;
                         break;
+
+                    case SRAV:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break;
+
+                    case SRL:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break; 
+
+                    case SLV:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break; 
 
                     case SUB:
                         REGISTERS[register_d] = 
@@ -180,6 +199,18 @@ void execute() {
                     case XOR: 
                         REGISTERS[register_d] = 
                             REGISTERS[register_s] ^ REGISTERS[register_t];
+                        break; 
+
+                    case JR:
+                        std::cout << "Not yet implemented" << std::endl;
+                        break; 
+
+                    case MFHI:
+                        REGISTERS[register_d] = HI;
+                        break;
+
+                    case MFLO: 
+                        REGISTERS[register_d] = LO;
                         break;
 
                     default:
@@ -189,6 +220,7 @@ void execute() {
                 } // end case FUNC
                 break;
 
+            /* Immediate instructions */
             case ADDI: 
                 REGISTERS[register_t]= REGISTERS[register_s] + immediate;
                 break;
@@ -205,30 +237,83 @@ void execute() {
                 REGISTERS[register_t]= REGISTERS[register_s] | immediate; 
                 break; 
 
-            case SLV:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case SRA:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case SRAV:
-                std::cout << "Not yet implemented" << std::endl;
-                break;
-
-            case SRL:
-                std::cout << "Not yet implemented" << std::endl;
-                break; 
-
             case XORI:
                 REGISTERS[register_t]= REGISTERS[register_s] ^ immediate; 
                 break; 
+
+            case LHI:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case LLO:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case BEQ:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case BLEZ:
+                std::cout << "Not yet implemented" << std::endl;
+                break; 
+
+            case BNE:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case J:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case JAL:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case LB:
+                std::cout << "Not yet implemented" << std::endl;
+                break; 
+
+            case LBU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case LH:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case LHU:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
 
             case LW:
                 REGISTERS[register_t]= 
                     MEMORY[REGISTERS[register_t] + immediate];
                 break; 
+
+            case SB:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SH:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case SW:
+                std::cout << "Not yet implemented" << std::endl;
+                break; 
+
+            case MTHI:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
+            case MTLO:
+                std::cout << "Not yet implemented" << std::endl;
+                break; 
+
+            case TRAP:
+                std::cout << "Not yet implemented" << std::endl;
+                break;
+
         }
         machinecode = 0;
 

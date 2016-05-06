@@ -18,6 +18,9 @@ enum Func {
     NOR     = 0x27, // 100111
     OR      = 0x25, // 100101 
     SLL     = 0x00, // 000000
+    SLV     = 0x04, // 000100
+    SRAV    = 0x07, // 000111
+    SRL     = 0x02, // 000010
     SRA     = 0x03, // 000011
     SRLV    = 0x06, // 000110
     SUB     = 0x22, // 100010
@@ -37,18 +40,7 @@ enum Func {
     SLTI    = 0x0A, // 001010
     SLTIU   = 0x09, // 001001 
 
-    // TODO: actual encoding '0000 00-- ---- ---- ---- ---- --00 1100'
-    /*
-     * For the future:
-     *  Define opcode ZERO = 0x00
-     *  in cpu.cpp, have a case ZERO
-     *  Within this case, have another switch for
-     *  the function codes, to specify what to do.
-     *
-     *  Make a file 'Headers/func.h' to contain the different function 
-     *  codes.
-     */
-    SYSCALL = 0x0c
+    SYSCALL = 0x0C
 };
 
 #endif
