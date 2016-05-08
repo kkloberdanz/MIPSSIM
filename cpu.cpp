@@ -193,8 +193,6 @@ void execute() {
                         
                     case SUBU:
                         std::cout << "Not yet implemented" << std::endl;
-                        //REGISTERS[register_d] = 
-                            //REGISTERS[register_s] - REGISTERS[register_t];
                         break;
 
                     case XOR: 
@@ -294,6 +292,7 @@ void execute() {
 
             case SB:
                 std::cout << "Not yet implemented" << std::endl;
+                MEMORY[register_s + immediate] = register_t;
                 break;
 
             case SH:
@@ -301,8 +300,15 @@ void execute() {
                 break;
 
             case SW:
-                MEMORY[register_s + immediate] = register_t;
+            { 
+                size_t i;
+                for (i = 0; i < 4; i++) { 
+                    MEMORY[register_s + immediate] = register_t / 0x1000000; 
+                    register_t = register_t << 8;
+                }
+
                 break; 
+            }
 
             case MTHI:
                 std::cout << "Not yet implemented" << std::endl;

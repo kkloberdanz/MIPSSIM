@@ -1,1 +1,4 @@
 For label, load in different memory address
+
+Refactor, so that the assembler, preprocessor, and loader run seperately,
+output intermediate steps to file maybe?
