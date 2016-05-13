@@ -41,11 +41,11 @@ std::string get_opcode(std::string line) {
 int8_t get_opcode_as_int(std::string opcode) { 
 
     std::vector<int8_t>    valid_opcodes_as_int_v {
-           ADD, ADDI, ADDIU, ADDU, AND, ANDI, BEQ, BGTZ, BLEZ, BNE, DIV, DIVU, J, JAL, JR, LB, LBU, LH, LHI, LHU, LLO, LW, MFHI, MFLO, MTHI, MTLO, MULT, MULTU, NOR, OR, ORI, SB, SH, SLL, SLT, SLTI, SLTIU, SLTU, SLV, SRA, SRAV, SRL, SRLV, SUB, SUBU, SW, SYSCALL, TRAP, XOR, XORI 
+           ADD, ADDI, ADDIU, ADDU, AND, ANDI, BEQ, BGTZ, BLEZ, BNE, DIV, DIVU, J, JAL, JR, LB, LBU, LH, LHI, LHU, LLO, LW, MFHI, MFLO, MTHI, MTLO, MULT, MULTU, NOR, OR, ORI, SB, SH, SLL, SLTI, SLTIU, SLV, SRA, SRAV, SRL, SRLV, SUB, SUBU, SW, SYSCALL, TRAP, XOR, XORI 
     };
 
     std::vector<std::string> valid_opcode_names_v { 
-           "add", "addi", "addiu", "addu", "and", "andi", "beq", "bgtz", "blez", "bne", "div", "divu", "j", "jal", "jr", "lb", "lbu", "lh", "lhi", "lhu", "llo", "lw", "mfhi", "mflo", "mthi", "mtlo", "mult", "multu", "nor", "or", "ori", "sb", "sh", "sll", "slt", "slti", "sltiu", "sltu", "slv", "sra", "srav", "srl", "srlv", "sub", "subu", "sw", "syscall", "trap", "xor", "xori"
+           "add", "addi", "addiu", "addu", "and", "andi", "beq", "bgtz", "blez", "bne", "div", "divu", "j", "jal", "jr", "lb", "lbu", "lh", "lhi", "lhu", "llo", "lw", "mfhi", "mflo", "mthi", "mtlo", "mult", "multu", "nor", "or", "ori", "sb", "sh", "sll", "slti", "sltiu", "slv", "sra", "srav", "srl", "srlv", "sub", "subu", "sw", "syscall", "trap", "xor", "xori"
     }; 
 
     int index;
