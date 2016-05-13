@@ -56,7 +56,7 @@ void execute() {
     int8_t shift_ammount;
     int8_t func;
     int16_t immediate;
-    //int32_t jump_target;
+    int32_t jump_target;
     int32_t machinecode = 0;
     //Instruction_type_t type;
     while (true) { 
@@ -86,7 +86,7 @@ void execute() {
         register_d    = get_register_d(machinecode);
         shift_ammount = get_shift_amount(machinecode);
         immediate     = get_immediate_from_machinecode(machinecode);
-        //jump_target   = get_jump_target(machinecode);
+        jump_target   = get_jump_target(machinecode);
         func          = get_function_from_machinecode(machinecode);
 
         /*
@@ -94,8 +94,7 @@ void execute() {
         printf("register_t:   %d\n", register_t);
         printf("register_s:    %d\n", register_s);
         printf("register_d:    %d\n", register_d);
-        printf("shift_ammount: %d\n", shift_ammount);
-        printf("immediate:     %d\n", immediate);
+        printf("shift_ammount: %d\n", shift_ammount); printf("immediate:     %d\n", immediate);
         printf("jump_target:   %d\n", jump_target);
         printf("func:          %d\n", func);
         puts("");
@@ -120,6 +119,7 @@ void execute() {
                         break;
 
                     case ADDU:
+                        std::cout << "Not yet implemented" << std::endl;
                         //REGISTERS[register_d] = 
                             //(uint32_t)(REGISTERS[register_s] + REGISTERS[register_t]);
                         break; 
@@ -161,13 +161,14 @@ void execute() {
                         break;
 
                     case SLL:
+                        /* Shift left logical, and NOOP (shifting zero does nothing) */
                         REGISTERS[register_d] = 
                             REGISTERS[register_t] << shift_ammount;
                         break;
 
                     case SRLV:
                         REGISTERS[register_d] = 
-                            REGISTERS[register_s] >>REGISTERS[register_t];
+                            REGISTERS[register_s] >> REGISTERS[register_t];
                         break;
 
                     case SRA:
@@ -242,11 +243,17 @@ void execute() {
                 break; 
 
             case LHI:
-                std::cout << "Not yet implemented" << std::endl;
+                {
+                /* load immediate << 16 into reg_d */
+                int32_t tmp = immediate;
+                REGISTERS[register_t] &= 0x0000FFFF; // zero out first 16 bits
+                REGISTERS[register_t] |= tmp << 16; // set first 16 bits to tmp
                 break;
+                }
 
             case LLO:
-                std::cout << "Not yet implemented" << std::endl;
+                REGISTERS[register_t] &= 0xFFFF0000; // zero out lower 16 bits
+                REGISTERS[register_t] |= immediate;  // set lower 16 bits to tmp
                 break;
 
             case BEQ:
@@ -262,11 +269,12 @@ void execute() {
                 break;
 
             case J:
-                std::cout << "Not yet implemented" << std::endl;
+                PROGRAM_COUNTER = jump_target << 2;
                 break;
 
             case JAL:
-                std::cout << "Not yet implemented" << std::endl;
+                REGISTERS[RA] = PROGRAM_COUNTER;
+                PROGRAM_COUNTER = jump_target << 2;
                 break;
 
             case LB:

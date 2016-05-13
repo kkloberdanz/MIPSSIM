@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstdint>
 
+#include "opcodes.h"
+
 enum Instruction_type_t { R_type, J_type, I_type };
 
 std::vector<std::string> get_valid_opcodes();

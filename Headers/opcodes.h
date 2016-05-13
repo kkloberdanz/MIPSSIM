@@ -6,7 +6,7 @@
 
 #include <cstdint> 
 
-enum Opcodes {
+enum Opcode {
 
     /* Arithmetic and logical instructions */
     FUNC    = 0x00,
@@ -45,6 +45,10 @@ enum Opcodes {
     /* Data Movement Instructions */
     MTHI    = 0x11, // 010001
     MTLO    = 0x13, // 010011
+
+    /* Comparison Instructions */
+    SLTI    = 0xA0,
+    SLTIU   = 0x09,
 
     /* Exception and Interrupt Instructions */
     TRAP    = 0x1A, // 011010 

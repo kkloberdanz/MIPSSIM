@@ -35,10 +35,8 @@ enum Func {
     MFLO    = 0x12, // 010010
 
     /* Comparison Instructions */
-    SLT     = 0x2A, // 101010
-    SLTU    = 0x2B, // 101011
-    SLTI    = 0x0A, // 001010
-    SLTIU   = 0x09, // 001001 
+    SLT     = 0x2A,
+    SLTU    = 0x2B,
 
     SYSCALL = 0x0C
 };
