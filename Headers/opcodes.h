@@ -47,8 +47,8 @@ enum Opcode {
     MTLO    = 0x13, // 010011
 
     /* Comparison Instructions */
-    SLTI    = 0x0A,
-    SLTIU   = 0x09,
+    SLTI    = 0x0A, // 001010
+    SLTIU   = 0x09, // 001001
 
     /* Exception and Interrupt Instructions */
     TRAP    = 0x1A, // 011010 
